@@ -1,8 +1,17 @@
 # STL常见用法 — queue
-> 代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。  
+---
+title: STL常见用法 — queue
+date: 2017-07-01 12:10:23
+tags: CPP
+---
 
+
+> 代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。 
+
+*** 
 ## 简介
  队列(queue)是一种特殊的线性表，是一种先进先出(First In First Out)的数据结构，允许在队列末尾插入元素，队列头取出元素，在STL中是用list或者deque实现，封闭头部即可。
+ 
 ## 用法
 ### 头文件
 ```
@@ -13,6 +22,7 @@
 template <class T, class Container = deque<T> > class queue; 
 ```
 队列适配器默认用deque容器实现，也可以指定使用list容器来实现
+
 ```
 queue <Elem> q;					// 创建一个空的queue，默认使用deque容器
 queue <Elem, list<Elem> > q;		// 使用list容器
