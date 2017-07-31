@@ -4,7 +4,7 @@
 
 # Site
 title: CodingDoge
-subtitle: swift、iOS
+subtitle: 关于开发、设计，关于生活。
 description: Keep it simple, stuip.
 author: CodingDoge
 language: zh-Hans
@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://dogecoding.github.io/
+url: http://codingdoge.cn
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -66,7 +66,7 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 3
+per_page: 7
 pagination_dir: page
 
 # Extensions
