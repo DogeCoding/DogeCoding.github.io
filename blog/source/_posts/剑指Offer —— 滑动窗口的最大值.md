@@ -14,24 +14,25 @@ tags: Algorithm
 
 ``` //
 vector<int> maxInWindows(const vector<int> &num, unsigned int size) {
-	vector<int> ans;
-	deque<int> q;
-	if (num.size() < size || size == 0) return ans;
-	for (int i = 0; i < size; i++) {
-		while(!q.empty() && num[i] > num[q.back()])
-			q.pop_back();
-		q.push_back(i);
-	}
-	for (int i = size; i < num.size(); i++) {
-		ans.push_back(num[q.front()]);
-		while (!q.empty() && num[i] >= num[q.back()])
-			q.pop_back();
-		while (!q.empty() && q.front() <= i-size)
-			q.pop_front();
-		q.push_back(i);
-	}
-	ans.push_back(num[q.front()]);
-	return ans;
+    vector<int> ans;
+    deque<int> q;
+    if (num.size() < size || size == 0) 
+        return ans;
+    for (int i = 0; i < size; i++) {
+        while(!q.empty() && num[i] > num[q.back()])
+        q.pop_back();
+        q.push_back(i);
+    }
+    for (int i = size; i < num.size(); i++) {
+        ans.push_back(num[q.front()]);
+        while (!q.empty() && num[i] >= num[q.back()])
+            q.pop_back();
+        while (!q.empty() && q.front() <= i-size)
+            q.pop_front();
+        q.push_back(i);
+    }
+    ans.push_back(num[q.front()]);
+    return ans;
 }
 ```
 

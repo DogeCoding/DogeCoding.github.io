@@ -6,10 +6,10 @@ tags: iOS
 > 转自[**CSDN hahahacff**](http://blog.csdn.net/hahahacff/article/details/39859901)  
 > 有所整理  
 
-####ARC forbids explicit message send of'retainCount'  
+### ARC forbids explicit message send of'retainCount'  
 * 同'release'等等
   
-![](http://images2015.cnblogs.com/blog/922727/201605/922727-20160520120512263-931285295.png)  
+![错误提示](http://oo8snaf4x.bkt.clouddn.com/15016445665946.png?imageView2/0/q/100)
 很显然，是**ARC**的问题。  
 错误原因：在创建工程的时候点选了**“Use Automatic Reference Counting”**选项,但是又调用了对象的**retainCount**方法  
   

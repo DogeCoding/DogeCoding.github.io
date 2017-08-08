@@ -13,7 +13,9 @@ IDE一般自带驱动，如果在串口里没发现，可以试试在![D7389412-
 这个系统报告里看看USB下面能不能读出
 
 也可以在bash里输入
-``` ls /dev/tty* ```  
+
+``` 
+ls /dev/tty* 
 ```
 如果有类似的即可
 ![2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90](http://oo8snaf4x.bkt.clouddn.com/2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90.png?imageView2/0/q/100)
@@ -27,21 +29,24 @@ IDE一般自带驱动，如果在串口里没发现，可以试试在![D7389412-
 > Apple在10.11中全面启用了名为 System Integrity Protection (SIP) 的系统完整性保护技术. 受此影响, 未经签名的第三方kext及经过修改的原版kext将无法正常加载, 大部分系统文件即使在root用户下也无法直接进行修改.    
 
 前面安装驱动不成功大部分是因为驱动文件冲突导致，所以在此之前先删除之前安装的驱动文件:
-``` sudo rm -rf /System/Library/Extensions/usb.kext ```
-``` sudo rm -rf /Library/Extensions/usbserial.kext ```
-``` sudo rm -rf _private_var_db_receipts/com.wch.* ```
+
+```
+sudo rm -rf /System/Library/Extensions/usb.kext
+sudo rm -rf /Library/Extensions/usbserial.kext
+sudo rm -rf _private_var_db_receipts/com.wch.* 
+```
 
 然后参考[CH340 CH341 serial adapters fix for El Capitan OS X](https://tzapu.com/making-ch340-ch341-serial-adapters-work-under-el-capitan-os-x/)可以通过以下步骤修改SIP设置来安装第三方kext:
 1. 重启OS X 并且立即按住 Command+ R 来来进入恢复模式
 2. 在恢复模式中, 菜单栏上面找到终端(Terminal)并打开
-3. 在终端中键入命令``` csrutil enable —without kext ```
+3. 在终端中键入命令`csrutil enable —without kext`
 4. 看到成功的提示信息之后, 输入reboot重启系统
-> 注: ```—without kext 中的``` - 有两条  
+> 注: `—without kext 中的` - 有两条  
 > Command 就是 ⌘ 图标  
 
 通过以上的操作之后, 采用CH340/1 系列芯片的Arduino开发板又可以被识别出来了. 如果还是无法识别, 请重新安装一次CH341SER驱动.
 
-1. 最后如果还不行(我的就是到这里还不行)，请看看你的板子是否接触不良，反复摩擦尝试看能不能读出串口，我之前也试过这个办法，但是没有用，后面偶然也是必然下反应过来，反反复复插USB拔出查看串口状态，终于解决了(无良商家害人)
+- 最后如果还不行(我的就是到这里还不行)，请看看你的板子是否接触不良，反复摩擦尝试看能不能读出串口，我之前也试过这个办法，但是没有用，后面偶然也是必然下反应过来，反反复复插USB拔出查看串口状态，终于解决了(无良商家害人)
 
 
 

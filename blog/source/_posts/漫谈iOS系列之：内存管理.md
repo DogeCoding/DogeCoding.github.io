@@ -3,19 +3,21 @@ tags: iOS
 ---
 
 ***
-#引用计数
+# 引用计数
 [推荐一篇来自@杨萧玉的引用计数原理Blog](http://yulingtianxia.com/blog/2015/12/06/The-Principle-of-Refenrence-Counting/)
 ***
-- **简介**  
-iOS中对内存管理的机制（堆内存），每一个对象都有一个与之关联的引用计数（Reference Counting）。当一个对象“被拥有”的时候引用计数+1，当一个对象引用计数为零时该对象被释放。  
-- **比拟**  
-比如上班，最早进入办公室的人需要开灯，之后进入办公室的人需要照明， 下班离开办公室的人不需要照明，最后离开办公室的人需要关灯。  
-这样对应的引用计数就是：第一个人进入办公室开灯，引用计数是1。之后进入办公室需要照明引用计数是2。下班一个人离开办公室引用计数变成了1，最后一个离开了办公室，引用计数变成了0 。  
+- **简介**
+iOS中对内存管理的机制（堆内存），每一个对象都有一个与之关联的引用计数（Reference Counting）。当一个对象“被拥有”的时候引用计数+1，当一个对象引用计数为零时该对象被释放。
+
+- **比拟**
+比如上班，最早进入办公室的人需要开灯，之后进入办公室的人需要照明， 下班离开办公室的人不需要照明，最后离开办公室的人需要关灯。
+这样对应的引用计数就是：第一个人进入办公室开灯，引用计数是1。之后进入办公室需要照明引用计数是2。下班一个人离开办公室引用计数变成了1，最后一个离开了办公室，引用计数变成了0。
+
 - **引用计数如何储存**
  1. TaggedPointer  
  [一篇极好的文章](http://www.cocoachina.com/ios/20150918/13449.html)  
 总体来说，我的理解是如果一个对象使用了**Tagged Pointer**技术（比如*NSString*，*NSNumber*等），指针里面会直接存数据内容，不会再作为“指针”指向其它地址，从Runtime来理解就是不会使用isa指针，也就不会继承苹果的内存管理方式（Reference Counting）。  
-判断当前对象是否在使用 TaggedPointer 是看标志位是否为1:  
+判断当前对象是否在使用 TaggedPointer 是看标志位是否为1:
 ```
 #if SUPPORT_MSB_TAGGED_POINTERS
 #   define TAG_MASK (1ULL<<63)
@@ -31,8 +33,9 @@ objc_object::isTaggedPointer()
 #endif
 }
 ```
- 2. isa 指针
- 指针的内存空间很大，有时候可以优化指针，在指针中存储一部分内容。下面列出不同架构下的64位环境中`isa`指针结构:  
+
+2. isa 指针
+指针的内存空间很大，有时候可以优化指针，在指针中存储一部分内容。下面列出不同架构下的64位环境中`isa`指针结构:  
 
 ```
 union isa_t 
@@ -42,7 +45,7 @@ union isa_t
 
     Class cls;
     uintptr_t bits;
-
+    
 #if SUPPORT_NONPOINTER_ISA
 # if __arm64__
 #   define ISA_MASK        0x00000001fffffff8ULL
@@ -102,37 +105,38 @@ union isa_t
 | deallocating | 表示该对象是否正在析构 |
 | has_sidetable_rc | 表示该对象的引用计数值是否过大无法存储在`isa`指针 |
 | extra_rc | 存储引用计数值减一后的结果 |
-  3. 散列表
+
+3. 散列表
 散列表来存储引用计数具体是用DenseMap类来实现，实现中有锁保证其安全性。
-
-
 - 获取引用计数  
-在MRC环境下可以使用```retainCount```方法获取某个对象的引用计数。  
-在ARC环境下可以使用Core Foundation 库的```CFGetRetainCount((__bridge CFTypeRef)(obj))```方法和Runtime的```_objc_rootRetainCount()```方法来获取引用计数，也可以使用KVC技术来获取```valueForKey:@"retainCount"```。注意以上方法不是线程安全的。
+在MRC环境下可以使用`retainCount`方法获取某个对象的引用计数。  
+在ARC环境下可以使用Core Foundation 库的`CFGetRetainCount((__bridge CFTypeRef)(obj))`方法和Runtime的`_objc_rootRetainCount()`方法来获取引用计数，也可以使用KVC技术来获取`valueForKey:@"retainCount"`。注意以上方法不是线程安全的。
 - 注意  
-NSString 定义的对象是保存在字符串常量区，没有用引用计数管理内存，如果输出其```retainCount```，为-1。  
+NSString 定义的对象是保存在字符串常量区，没有用引用计数管理内存，如果输出其`retainCount`，为-1。  
  
 > ![retainCount](http://upload-images.jianshu.io/upload_images/2590408-a0c222416dbc63a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 注意其中的**Do not use this method**。   
 
 
-#MRC(Manual Reference Counting)
+# MRC(Manual Reference Counting)
 ***
 MRC从字面上理解就是手动管理引用计数，也就是手动管理内存。相关的内存管理方法有`retain`，`release`，`autorelease`，其中`retain`方法是对引用计数+1，相应的`release`是对引用计数-1，`autorelease`是将对象加入自动释放池，下文会讲到。
 
 - 示例代码
 
- ```
- // 以预定Person类为例
- Person* person = [[Person alloc] init];    // 申请对象，此时引用计数=1
- [person retain];  //此时引用记数+1，现为2
- [person release];   //引用计数-1，此时引用计数=1
- [person release];   //引用计数-1，此时引用计数=0，内存被释放
- [person autorelease];  // 将对象加入自动释放池
- Person *person = [[[Person alloc] init] autorelease]; // 也可以在创建对象时将其加入自动释放池
 ```
+// 以预定Person类为例
+Person* person = [[Person alloc] init];    // 申请对象，此时引用计数=1
+[person retain];  //此时引用记数+1，现为2
+[person release];   //引用计数-1，此时引用计数=1
+[person release];   //引用计数-1，此时引用计数=0，内存被释放
+[person autorelease];  // 将对象加入自动释放池
+Person *person = [[[Person alloc] init] autorelease]; // 也可以在创建对象时将其加入自动释放池
+```
+
 按道理来说创建一个对象，然后`release`后该对象引用计数为零，但是实际情况中并不会出现这种现象，`release`后再输出其引用计数还是为1，在我的理解中有两种可能：
- 1. 该对象在引用计数为1的时候进行`release`后，对象已经被释放，此时再调用`retainCount`毫无意义，因为该对象已经不存在了，为了防止某些错误保护这个`retainCount`方法所以编译器不会报错，但是输出值为释放前的值；
- 2. 编译器为我们做了各种优化，也许是记录`retainCount`为零消耗过大或者没有意义。
+
+1. 该对象在引用计数为1的时候进行`release`后，对象已经被释放，此时再调用`retainCount`毫无意义，因为该对象已经不存在了，为了防止某些错误保护这个`retainCount`方法所以编译器不会报错，但是输出值为释放前的值；
+2. 编译器为我们做了各种优化，也许是记录`retainCount`为零消耗过大或者没有意义。
 
 ![重写了`dealloc`方便查看对象是否被释放](http://upload-images.jianshu.io/upload_images/2590408-c23186f1a9b761f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![输出其`retainCount`然后释放](http://upload-images.jianshu.io/upload_images/2590408-85f2e1aadd64812e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -146,12 +150,13 @@ MRC从字面上理解就是手动管理引用计数，也就是手动管理内�
 **注意**：不能使用[p retaion]让僵尸对象起死复生。
 
 在MRC管理时代有一个黄金法则：
+
  1. 谁创建谁负责。如果你通过alloc,new,copy来创建了一个对象，那么你就必须调用release或者autorelease方法；
  2. 谁retain，谁release。只要你调用了retain，无论这个对象时如何生成的，你都要调用release；
 
-#ARC
+# ARC
 ***
-##原理
+## 原理
 前段编译器会为“拥有的”每一个对象加入相应的`release`语句，如果对象的所有权修饰符是`__strong`，那么它就是被拥有的。如果再某个方法内创建了一个对象，前端编译器会在方法末尾自动插入`release`语句已销毁它。而类拥有的对象（实例变量/属性）会在`dealloc`方法内被释放。
 ![编译器所为](http://upload-images.jianshu.io/upload_images/2590408-087aa0f74748d421.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -181,7 +186,7 @@ if (![data writeToFile:filename options:NSDataWritingAtomic error:&tempError])
 所以为了提高效率，避免这种情况，我们一般在定义`error`的时候将其老老实实地声明为`__autoreleasing`类型。
 
 ***
-#循环引用
+# 循环引用
 ***
 平常我们容易造成循环引用的三种情况：
 1. **`NSTimer`**

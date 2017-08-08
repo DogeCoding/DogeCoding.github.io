@@ -31,9 +31,11 @@ for(int i = 0; i < num; i++){
  	}  
 }
 ```  
+
 自然是T了。然后就把sorted array当做已经排好序的数组，那就容易多了，算法也都是O(1)，一看代码就明白，水题，直接上代码。  
 
 ### way1
+
 ```
 if (nums.empty()) return 0;  
    int index = 0;  
@@ -45,21 +47,27 @@ return index + 1;
 ```  
 
 ### way2 STL
+
 ```
 return distance(nums.begin(), unique(nums.begin(), nums.end()));
 ```  
 
  
 
-- std::distance  
+- std::distance 
+
+``` 
 template<class InputIterator>  
   typename iterator_traits<InputIterator>::difference_type  
     distance (InputIterator first, InputIterator last);  
 Return distance between iterators  
 Calculates the number of elements between first and last.  
-[c++ reference](http://www.cplusplus.com/reference/iterator/distance/)  
+[c++ reference](http://www.cplusplus.com/reference/iterator/distance/) 
+``` 
 
-- std::unique  
+- std::unique
+- 
+```
 equality (1)  
 template <class ForwardIterator>  
   ForwardIterator unique (ForwardIterator first, ForwardIterator last);  
@@ -69,7 +77,8 @@ template <class ForwardIterator, class BinaryPredicate>
                           BinaryPredicate pred);  
 Remove consecutive duplicates in range  
 Removes all but the first element from every consecutive group of equivalent elements in the range [first,last).  
-[c++ reference](http://www.cplusplus.com/reference/algorithm/unique/?kw=unique)  
+[c++ reference](http://www.cplusplus.com/reference/algorithm/unique/?kw=unique)
+```
 
 ## 相关题目
 [RemoveDuplicatesfromSortedArrayII](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)

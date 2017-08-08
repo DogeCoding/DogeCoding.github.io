@@ -5,7 +5,6 @@ tags: iOS
 
 > [转自*GISerYang*](http://www.cnblogs.com/GISerYang/p/3340937.html)  
 
-#集合
 ***集合（NSSet）***和***数组（NSArray）***有相似之处，都是存储不同的对象的地址；不过NSArray是有序的集合，NSSet是无序的集合。  
 
 集合是一种哈希表，运用散列算法，查找集合中的元素比数组速度更快，但是它没有顺序。
@@ -94,7 +93,7 @@ NSSet * set2 = [[NSSet alloc] initWithObjects:@"two",@"three",@"four", nil];
 
  
 
-#指数集合（索引集合）NSIndexSet
+# 指数集合（索引集合）NSIndexSet
 
 ```  //
 NSIndexSet * indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, 3)]; //集合中的数字是123
@@ -107,7 +106,7 @@ NSArray * array = [[NSArray alloc]   initWithObjects:@"one",@"two",@"three",@"fo
 NSArray * newArray = [array objectsAtIndexes:indexSet]; //返回@"two",@"three",@"four"
 ```
 
-#可变指数集合NSMutableIndexSet
+# 可变指数集合NSMutableIndexSet
 
 ``` //
 NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];  

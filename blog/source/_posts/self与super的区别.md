@@ -10,7 +10,7 @@ tags: iOS
 
 * 以下面的代码为例：
 
-``` //objective-c
+``` 
 @interface Person:NSObject
 {
 	NSString*  name;
@@ -61,13 +61,13 @@ super ' s class is PersonMe
 
 **self**的**class**和预想的一样，怎么**super**的**class**也是**PersonMe**?  
 
-###真相
+### 真相
 
 **self**是类的隐藏的参数，指向当前当前调用方法的类，另一个隐藏参数是**_cmd**，代表当前类方法的**selector**。这里只关注这个**self**。**super**是个啥？**super**并不是隐藏的参数，它只是一个**“编译器指示符”**，它和**self**指向的是相同的消息接收者，拿上面的代码为例，不论是用**[self setName]**还是**[super setName]**，接收**“setName”**这个消息的接收者都是**PersonMe* me**这个对象。不同的是，**super**告诉编译器，当调用**setName**的方法时，要去调用父类的方法，而不是本类里的。
 
 当使用**self**调用方法时，会从**当前类**的方法列表中开始找，如果没有，就从**父类**中再找；而当使用**superv时，则从**父类**的方法列表中开始找。然后调用父类的这个方法。
 
-###One more step
+### One more step
 
 这种机制到底底层是如何实现的？其实当调用类方法的时候，编译器会将方法调用转成一个C函数方法调用，apple的objcRuntimeRef上说：
 
