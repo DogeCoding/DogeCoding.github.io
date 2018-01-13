@@ -1,6 +1,6 @@
 ---
-layout: tags
-title: tags
+layout: categories
+comments: false
 ---
 
 

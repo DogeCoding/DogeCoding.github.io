@@ -7,6 +7,7 @@ title: CodingDoge
 subtitle: 关于开发、设计，关于生活。
 description: Keep it simple, stuip.
 author: CodingDoge
+email: codingdoge@outlook.com
 language: zh-Hans
 timezone:
 
@@ -72,7 +73,9 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: jacman
+theme: indigo
+stylus:
+    compress: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -80,3 +83,9 @@ deploy:
   type: git
   repository: git@github.com:DogeCoding/dogecoding.github.io.git
   branch: master
+
+# Feed
+feed:
+    type: atom
+    path: atom.xml
+    limit: 0
