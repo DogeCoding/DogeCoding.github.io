@@ -372,6 +372,23 @@
 
 
 
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'dogecoding',
+            repo: 'dogecoding.github.io',
+            oauth: {
+                client_id: 'abd4003b36391934434a',
+                client_secret: '866ef9d925264063749609804c9fa08296f79822',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
 
 
 
