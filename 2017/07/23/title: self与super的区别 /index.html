@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="CodingDoge">
 <meta property="og:description" content="原文CSDN evilotus有所整理    在ObjC中的类实现中经常看到这两个关键字”self”和”super”，以以前oop语言的经验，拿c++为例，self相当于this，super相当于调用父类的方法，这么看起来是很容易理解的。但是它们真正是如何调用的呢? 你知道吗?     以下面的代码为例：  12345678910111213141516171819202122232425262">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-14T16:47:12.060Z">
+<meta property="og:updated_time" content="2018-01-14T18:40:24.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="self与super的区别">
 <meta name="twitter:description" content="原文CSDN evilotus有所整理    在ObjC中的类实现中经常看到这两个关键字”self”和”super”，以以前oop语言的经验，拿c++为例，self相当于this，super相当于调用父类的方法，这么看起来是很容易理解的。但是它们真正是如何调用的呢? 你知道吗?     以下面的代码为例：  12345678910111213141516171819202122232425262">
@@ -137,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -213,7 +213,10 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">@interface Person:NSObject</div><div class="line">&#123;</div><div class="line">trueNSString*  name;</div><div class="line">&#125;</div><div class="line">    (void) setName:(NSString) yourName;</div><div class="line">@end	//Person  </div><div class="line">@interface PersonMe:Person</div><div class="line">&#123;</div><div class="line">trueNSUInteger age;</div><div class="line">&#125;</div><div class="line">    (void) setAge:(NSUInteger) age;</div><div class="line">    (void) setName:(NSString*) yourName andAge:(NSUInteger) age;</div><div class="line">@end	// PersonMe  </div><div class="line">@implementation PersonMe</div><div class="line">(void) setName:(NSString*) yourName andAge:(NSUInteger) age</div><div class="line">&#123;</div><div class="line">true[self setAge:age];</div><div class="line">true[super setName:yourName];</div><div class="line">&#125;</div><div class="line">@end	// PersonMe  </div><div class="line">int main(int argc, char* argv[]) &#123;</div><div class="line">NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init]</div><div class="line">PersonMe* me = [[PersonMe alloc] init];</div><div class="line">[me setName: @&quot;asdf&quot; andAge: 18];</div><div class="line">[me release];</div><div class="line">[pool drain];</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面有简单的两个类，在子类<strong>PersonMe</strong>中调用了自己类中的<strong>setAge</strong>和父类中的<strong>setName</strong>，这些代码看起来很好理解，没什么问题。 然后我在<strong>setName:andAge</strong>的方法中加入两行:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;self &apos; class is %@&quot;, [self class]);</div><div class="line">NSLog(@&quot;super&apos; class is %@&quot;, [super class]);</div><div class="line">```  </div><div class="line"></div><div class="line">这样在调用时，会打出来这两个的**class**，先猜下吧，会打印出什么？ 按照以前*oop*语言的经验，这里应该会输出:***self &apos; s class is PersonMe super &apos; s class is Person***</div><div class="line"></div><div class="line">但是编译运行后，可以发现结果是：</div><div class="line"></div><div class="line">``` // </div><div class="line">self &apos;s class is PersonMe</div><div class="line">super &apos; s class is PersonMe</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSLog(@<span class="string">"self ' class is %@"</span>, [<span class="keyword">self</span> <span class="class"><span class="keyword">class</span>]);</span></div><div class="line">NSLog(@<span class="string">"super' class is %@"</span>, [<span class="keyword">super</span> <span class="class"><span class="keyword">class</span>]);</span></div></pre></td></tr></table></figure>
+<p>这样在调用时，会打出来这两个的<strong>class</strong>，先猜下吧，会打印出什么？ 按照以前<em>oop</em>语言的经验，这里应该会输出:<strong><em>self ‘ s class is PersonMe super ‘ s class is Person</em></strong></p>
+<p>但是编译运行后，可以发现结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">self &apos;s class is PersonMe</div><div class="line">super &apos; s class is PersonMe</div></pre></td></tr></table></figure>
 <p><strong>self</strong>的<strong>class</strong>和预想的一样，怎么<strong>super</strong>的<strong>class</strong>也是<strong>PersonMe</strong>?  </p>
 <h3 id="真相"><a href="#真相" class="headerlink" title="真相"></a>真相</h3><p><strong>self</strong>是类的隐藏的参数，指向当前当前调用方法的类，另一个隐藏参数是<strong>_cmd</strong>，代表当前类方法的<strong>selector</strong>。这里只关注这个<strong>self</strong>。<strong>super</strong>是个啥？<strong>super</strong>并不是隐藏的参数，它只是一个<strong>“编译器指示符”</strong>，它和<strong>self</strong>指向的是相同的消息接收者，拿上面的代码为例，不论是用<strong>[self setName]</strong>还是<strong>[super setName]</strong>，接收<strong>“setName”</strong>这个消息的接收者都是<strong>PersonMe* me</strong>这个对象。不同的是，<strong>super</strong>告诉编译器，当调用<strong>setName</strong>的方法时，要去调用父类的方法，而不是本类里的。</p>
 <p>当使用<strong>self</strong>调用方法时，会从<strong>当前类</strong>的方法列表中开始找，如果没有，就从<strong>父类</strong>中再找；而当使用<strong>superv时，则从</strong>父类**的方法列表中开始找。然后调用父类的这个方法。</p>
@@ -258,7 +261,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-01-14T16:47:12.060Z" itemprop="dateUpdated">2018-01-15 00:47:12</time>
+    Last updated: <time datetime="2018-01-14T18:40:24.122Z" itemprop="dateUpdated">2018-01-15 02:40:24</time>
 </span><br>
 
 
@@ -424,7 +427,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
