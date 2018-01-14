@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Objective-C声明在头文件和实现文件中的区别 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="OC,转载">
+    <meta name="description" content="转自codecloud(有整理)  调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下: 属性写在.h文件中和在.m文件中有什么区别?  Objective-C中有分类和类扩展的概念，而实现文件中的类声明实际上就是类扩展.  @interface部分为类扩展（extension）  其被设计出来就是为了解决两个问题的  定义类私有方法的地方，也就是下面说到的区别一 实">
+<meta name="keywords" content="OC,转载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C声明在头文件和实现文件中的区别">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="转自codecloud(有整理)  调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下: 属性写在.h文件中和在.m文件中有什么区别?  Objective-C中有分类和类扩展的概念，而实现文件中的类声明实际上就是类扩展.  @interface部分为类扩展（extension）  其被设计出来就是为了解决两个问题的  定义类私有方法的地方，也就是下面说到的区别一 实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-14T16:53:10.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C声明在头文件和实现文件中的区别">
+<meta name="twitter:description" content="转自codecloud(有整理)  调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下: 属性写在.h文件中和在.m文件中有什么区别?  Objective-C中有分类和类扩展的概念，而实现文件中的类声明实际上就是类扩展.  @interface部分为类扩展（extension）  其被设计出来就是为了解决两个问题的  定义类私有方法的地方，也就是下面说到的区别一 实">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Objective-C声明在头文件和实现文件中的区别</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Objective-C声明在头文件和实现文件中的区别</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:47:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下"><span class="post-toc-number">1.</span> <span class="post-toc-text">调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下:</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#区别一："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">区别一：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#区别二"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">区别二</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#头文件相对于实现文件的作用在于"><span class="post-toc-number">2.</span> <span class="post-toc-text">头文件相对于实现文件的作用在于:</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于头文件和实现文件的编译连接的过程"><span class="post-toc-number">3.</span> <span class="post-toc-text">关于头文件和实现文件的编译连接的过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#现在以这个例子来讲解编译器的工作"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">现在以这个例子来讲解编译器的工作:</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再回到C文件与头文件各写什么内容的话题上："><span class="post-toc-number">4.</span> <span class="post-toc-text">再回到C文件与头文件各写什么内容的话题上：</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: Objective-C声明在头文件和实现文件中的区别  "
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Objective-C声明在头文件和实现文件中的区别</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:47:00" datetime="2017-07-23T15:47:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>转自<a href="http://codecloud.net/objective-c-6782.html" target="_blank" rel="noopener">codecloud</a>(有整理)</p>
+</blockquote>
+<h2 id="调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下"><a href="#调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下" class="headerlink" title="调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下:"></a>调试程序的时候，突然想到这个问题，百度一下发现有不少这方面的问答，粗略总结一下:</h2><ul>
+<li>属性写在.h文件中和在.m文件中有什么区别?</li>
+</ul>
+<p>Objective-C中有分类和类扩展的概念，而实现文件中的类声明实际上就是类扩展.</p>
+<blockquote>
+<p>@interface部分为类扩展（extension）</p>
+</blockquote>
+<p>其被设计出来就是为了解决两个问题的</p>
+<ol>
+<li>定义类私有方法的地方，也就是下面说到的区别一</li>
+<li>实现public readonly,private readwrite的property（意思是在h头文件中定义一个属性对外是readonly的，但在类的内部希望是可读写的，所以可以在m源文件中的@interface部分重新定义此属性为readwrite，此时此属性对外是只读的，对内是读写的）.  </li>
+</ol>
+<p>此外，也可在此部分申明变量和属性，但申明的变量，属性和方法均为私有的，只能够被当前类访问，相当于private。</p>
+<h3 id="区别一："><a href="#区别一：" class="headerlink" title="区别一："></a>区别一：</h3><p>属性在.h文件中和在.m中声明是有区别的。区别就是，在.h文件中声明的属性，外部类可以通过“类实例.属性”来调用，但在.m中声明的则不可以，获取和设置的方法，只能是通过setValue:forKey和valueForKey来实现。</p>
+<p>成员变量，有三种权限，就是大家都知道的@private、@protected、@public ，写在.m文件中时，相当于是@private权限，子类无法访问，验证了一下，做权限修改也无效。而写在.h文件中，默认是@protected权限，子类可以访问，可以做权限修改。因为访问权限指针对.h文件。.h文件中成员变量，外部类对其的调用，跟C++一样，用-&gt;来调用。</p>
+<h3 id="区别二"><a href="#区别二" class="headerlink" title="区别二"></a>区别二</h3><p>这样可以提高编译效率，避免重复编译。<br>因为分开的话只需要编译一次生成对应的.obj文件后，再次应用该类的地方，这个类就不会被再次编译，从而大大提高了效率。这样可以提高编译效率，避免重复编译.</p>
+<blockquote>
+<p>怎么去解释呢…其实这是一个面向对象的思想，所谓”提高”的比较对象，应该是直接将方法写到具体函数里的实现方式.<br>h为编译器提供一个索引、声明，连接obj对象和主程序.<br>编译器在编译的时候，如果需要，则去查找h，找到了h，再找对应的obj，就可以找到类的方法了.<br>但是如果直接写入到同一个文件（例如hpp），主程序没有索引，也不清楚具体的类实现了没有，只能一次次重复的编译相同的代码，这样实际上没有把这个类该有的东西抽象出来.<br>对于函数声明在头文件中，在实现文件中实现，也是避免重复编译，函数可以多次声明，但只能实现一次.</p>
+</blockquote>
+<h2 id="头文件相对于实现文件的作用在于"><a href="#头文件相对于实现文件的作用在于" class="headerlink" title="头文件相对于实现文件的作用在于:"></a>头文件相对于实现文件的作用在于:</h2><ol>
+<li><p>头文件可以预先告诉编译器一些必要的声明,让编译器顺利进行下去,在连接实现以前.未必出现实际的定义.</p>
+<pre><code>头文件的意义在:
+* 使得程序简明,清晰.
+* 避免了重复编写相同的声明代码.
+</code></pre></li>
+<li><strong>.c和</strong>.h文件没有必然的联系.</li>
+</ol>
+<h2 id="关于头文件和实现文件的编译连接的过程"><a href="#关于头文件和实现文件的编译连接的过程" class="headerlink" title="关于头文件和实现文件的编译连接的过程"></a>关于头文件和实现文件的编译连接的过程</h2><p>其实要理解C文件与头文件有什么不同之处，首先需要弄明白编译器的工作过程，一般说来编译器会做以下几个过程:</p>
+<ol>
+<li>预处理阶段</li>
+<li>词法与语法分析阶段</li>
+<li>编译阶段，首先编译成纯汇编语句，再将之汇编成跟CPU相关的二进制码，生成各个目标文件</li>
+<li>连接阶段，将各个目标文件中的各段代码进行绝对地址定位，生成跟特定平台相关的可执行文件，当然，最后还可以用<code>objcopy</code>生成纯二进制<br>码，也就是去掉了文件格式信息.</li>
+</ol>
+<p>编译器在编译时是以C文件为单位进行的，也就是说如果你的项目中一个C文件都没有，那么你的项目将无法编译，连接器是以目标文件为单位，它将一个或多个目标文件进行函数与变量的重定位，生成最终的可执行文件，在PC上的程序开发，一般都有一个<code>main</code>函数，这是各个编译器的约定，当然，你如果自己写连接器脚本的话，可以不用<code>main</code>函数作为程序入口！！！</p>
+<p>有了这些基础知识，再言归正传，为了生成一个最终的可执行文件，就需要一些目标文件，也就是需要C文件，而这些C文件中又需要一个main函数作为可执行程序的入口，那么我们就从一个C文件入手，假定这个C文件内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> \<span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> “mytest.h”</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">test = <span class="number">25</span>;</div><div class="line"><span class="built_in">printf</span>(“test……………..%d\n”,test);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>头文件内容如下:<br><code>int test;</code></p>
+<h3 id="现在以这个例子来讲解编译器的工作"><a href="#现在以这个例子来讲解编译器的工作" class="headerlink" title="现在以这个例子来讲解编译器的工作:"></a>现在以这个例子来讲解编译器的工作:</h3><ol>
+<li><p>预处理阶段:<br>编译器以C文件作为一个单元，首先读这个C文件，发现第一句与第二句是包含一个头文件，就会在所有搜索路径中寻找这两个文件，找到之后，就会将相应头文件中再去处理宏，变量，函数声明，嵌套的头文件包含等，检测依赖关系，进行宏替换，看是否有重复定义与声明的情况发生，最后将那些文件中所有的东东全部扫描进这个当前的C文件中，形成一个中间“C文件”</p>
+</li>
+<li><p>编译阶段:<br>在上一步中相当于将那个头文件中的test变量扫描进了一个中间C文件，那么test变量就变成了这个文件中的一个全局变量，此时就将所有这个中间C文件的所有变量，函数分配空间，将各个函数编译成二进制码，按照特定目标文件格式生成目标文件，在这种格式的目标文件中进行各个全局变量，函数的符号描述，将这些二进制码按照一定的标准组织成一个目标文件</p>
+</li>
+<li><p>连接阶段:<br>将上一步成生的各个目标文件，根据一些参数，连接生成最终的可执行文件，主要的工作就是重定位各个目标文件的函数，变量等，相当于将个目标文件中的二进制码按一定的规范合到一个文件中  </p>
+</li>
+</ol>
+<h2 id="再回到C文件与头文件各写什么内容的话题上："><a href="#再回到C文件与头文件各写什么内容的话题上：" class="headerlink" title="再回到C文件与头文件各写什么内容的话题上："></a>再回到C文件与头文件各写什么内容的话题上：</h2><p>理论上来说C文件与头文件里的内容，只要是C语言所支持的，无论写什么都可以的，比如你在头文件中写函数体，只要在任何一个C文件包含此头文件就可以将这个函数编译成目标文件的一部分（编译是以C文件为单位的，如果不在任何C文件中包含此头文件的话，这段代码就形同虚设），你可以在C文件中进行函数声明，变量声明，结构体声明，这也不成问题！！！<br>那为何一定要分成头文件与C文件呢？又为何一般都在头件中进行函数，变量声明，宏声明，结构体声明呢？而在C文件中去进行变量定义，函数实现呢？？<br>原因如下:</p>
+<ol>
+<li><p>如果在头文件中实现一个函数体，那么如果在多个C文件中引用它，而且又同时编译多个C文件，将其生成的目标文件连接成一个可执行文件，在每个引用此头文件的C文件所生成的目标文件中，都有一份这个函数的代码，如果这段函数又没有定义成局部函数，那么在连接时，就会发现多个相同的函数，就会报错</p>
+</li>
+<li><p>如果在头文件中定义全局变量，并且将此全局变量赋初值，那么在多个引用此头文件的C文件中同样存在相同变量名的拷贝，关键是此变量被赋了初值，所以编译器就会将此变量放入DATA段，最终在连接阶段，会在DATA段中存在多个相同的变量，它无法将这些变量统一成一个变量，也就是仅为此变量分配一个空间，而不是多份空间，假定这个变量在头文件没有赋初值，编译器就会将之放入BSS段，连接器会对BSS段的多个同名变量仅分配一个存储空间</p>
+</li>
+<li><p>如果在C文件中声明宏，结构体，函数等，那么我要在另一个C文件中引用相应的宏，结构体，就必须再做一次重复的工作，如果我改了一个C文件中的一个声明，那么又忘了改其它C文件中的声明，这不就出了大问题了，程序的逻辑就变成了你不可想象的了，如果把这些公共的东东放在一个头文件中，想用它的C文件就只需要引用一个就OK了！！！这样岂不方便，要改某个声明的时候，只需要动一下头文件就行了</p>
+</li>
+<li><p>在头文件中声明结构体，函数等，当你需要将你的代码封装成一个库，让别人来用你的代码，你又不想公布源码，那么人家如何利用你的库呢？也就是如何利用你的库中的各个函数呢？？一种方法是公布源码，别人想怎么用就怎么用，另一种是提供头文件，别人从头文件中看你的函数原型，这样人家才知道如何调用你写的函数，就如同你调用printf函数一样，里面的参数是怎样的？？你是怎么知道的？？还不是看人家的头文件中的相关声明啊！！！当然这些东东都成了C标准，就算不看人家的头文件，你一样可以知道怎么使用.</p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-14T16:53:10.421Z" itemprop="dateUpdated">2018-01-15 00:53:10</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转载/">转载</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&title=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&title=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: self与super的区别 /" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">self与super的区别</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: CocoaPods 安装及一般使用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CocoaPods 安装及一般使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&title=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&title=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Objective-C声明在头文件和实现文件中的区别》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJUlEQVR42u3ay27iQBAF0Pz/T2e2kTKQe6uMhJvjFTLY7tNeFPX4+oqP7x/H7zO/j9/XJvd8/pvn9/l6xYGNjY19E3YCeHTm0eOTjXh+Pl/D7GVgY2Njn8d+HhiSW8+Wktwn2eLcgo2NjY197X/75+Ew30RsbGxs7FkAyxedPyW5qn092NjY2J/A3gSGNlwlIaoNky+spWFjY2O/PTvvir7/55f0t7GxsbHfmL0p3F9b+tk0DGoFNjY29kHsWem/jQ77Bu1VhSdsbGzsT2C3C501d2dhb5ZlRF0RbGxs7CPYs6VvSvZXDfEkbePLJoywsbGx34ydBIn8MW0KMWviXtC0wMbGxv4Ydh5m8rGbWZqRb190HhsbG/sgdh54km/b37dPeV0Cg42NjX13drus5AFtOGwZSZi8eJ4UGxsb+43ZbVln1iSYBcv8hdVdEWxsbOwj2G2+MivuJ/i2tLQKkNjY2NgHsfMS/LBGtUgh8kGiNq3CxsbGPo89K+i0Tdz2PVw7EvqfZ2FjY2Mfym7HdGatgs0oz6x5jI2NjX0qOy8DbcpDm8GdTaB6eBU2Njb2QewkhMxKS/u4midC+WqLyImNjY19Q/ZslKctHuXf5oNEsyCKjY2NfSp7X1SajQElZ4rSfzkMhI2NjX0eOx/BaVsLm5ZAG/by8IaNjY19Brtdel5maotHeYi64CpsbGzsm7M36cSmGbwZo8y34+FqsbGxsQ9lb85smrjfwdEWuf74FhsbG/sg9j6PaUdk8pDZBsW2wYCNjY19Hns/WNmmMbOBzrZtXHcMsLGxsW/Ini1oX3LKP7dJTrQd2NjY2B/AvqoYNNviWSpSbBk2Njb20ew2gWnbt7O2bju+80e6hY2NjX0E+7s88r/+SaowK1ol96zfMzY2NvZt2ZtAlT++XcpsZGfWusDGxsY+g73/65+nH7Nmw0sCGDY2NvZx7FnZfZOKJIM+V1XOsLGxsbFnRf9Zk2DTeC62DBsbG/vj2a9oA7SDO6vAiY2NjX0cOx++ycNG2yrYhLQ2KcLGxsY+ib0v0OSBZ1bWn6Uc7WgRNjY29g3Z/wDVY2kEJA997QAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

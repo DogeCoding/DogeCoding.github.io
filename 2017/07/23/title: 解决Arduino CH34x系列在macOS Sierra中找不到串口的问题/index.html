@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>解决Arduino CH34x系列在macOS Sierra中找不到串口的问题 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Bug">
+    <meta name="description" content="毕设做Arduino开发，一开始买了淘宝上慧净自己改的Arduino UNO国产板子，回来插在mac上读不出串口，安装了它附带的驱动还是读不出，同学买了原装板说一插上就能读出串口，都没自己装驱动，为了省麻烦，直接跟商家换了原装板，这时候麻烦来了，板子在我电脑上读不出串口，在别人电脑上能读出来，别人的在我电脑上也读不出来…很崩溃，然后从各个角度debug，下面一个个步骤来，基本能解决。     安">
+<meta name="keywords" content="Bug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决Arduino CH34x系列在macOS Sierra中找不到串口的问题">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="毕设做Arduino开发，一开始买了淘宝上慧净自己改的Arduino UNO国产板子，回来插在mac上读不出串口，安装了它附带的驱动还是读不出，同学买了原装板说一插上就能读出串口，都没自己装驱动，为了省麻烦，直接跟商家换了原装板，这时候麻烦来了，板子在我电脑上读不出串口，在别人电脑上能读出来，别人的在我电脑上也读不出来…很崩溃，然后从各个角度debug，下面一个个步骤来，基本能解决。     安">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/D7389412-ED23-427D-82E7-4E1C26114D67.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90.png?imageView2/0/q/100">
+<meta property="og:updated_time" content="2018-01-12T14:23:28.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决Arduino CH34x系列在macOS Sierra中找不到串口的问题">
+<meta name="twitter:description" content="毕设做Arduino开发，一开始买了淘宝上慧净自己改的Arduino UNO国产板子，回来插在mac上读不出串口，安装了它附带的驱动还是读不出，同学买了原装板说一插上就能读出串口，都没自己装驱动，为了省麻烦，直接跟商家换了原装板，这时候麻烦来了，板子在我电脑上读不出串口，在别人电脑上能读出来，别人的在我电脑上也读不出来…很崩溃，然后从各个角度debug，下面一个个步骤来，基本能解决。     安">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/D7389412-ED23-427D-82E7-4E1C26114D67.png?imageView2/0/q/100">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">解决Arduino CH34x系列在macOS Sierra中找不到串口的问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">解决Arduino CH34x系列在macOS Sierra中找不到串口的问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:06:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">解决Arduino CH34x系列在macOS Sierra中找不到串口的问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:06:00" datetime="2017-07-23T15:06:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>毕设做Arduino开发，一开始买了淘宝上慧净自己改的Arduino UNO国产板子，回来插在mac上读不出串口，安装了它附带的驱动还是读不出，同学买了原装板说一插上就能读出串口，都没自己装驱动，为了省麻烦，直接跟商家换了原装板，这时候麻烦来了，板子在我电脑上读不出串口，在别人电脑上能读出来，别人的在我电脑上也读不出来…很崩溃，然后从各个角度debug，下面一个个步骤来，基本能解决。  </p>
+</blockquote>
+<ol>
+<li>安装<a href="https://www.arduino.cc/en/Main/Software" target="_blank" rel="noopener">Arduino IDE</a><br>上面是官网IDE下载的连接，大概是因为GFW的原因下载速度奇慢，大家也可以去搜Arduino中文社区，里面有好人做了*度网盘的下载种子，速度能快点。<br>IDE一般自带驱动，如果在串口里没发现，可以试试在<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/D7389412-ED23-427D-82E7-4E1C26114D67.png?imageView2/0/q/100" alt="D7389412-ED23-427D-82E7-4E1C26114D67" title="">
+                </div>
+                <div class="image-caption">D7389412-ED23-427D-82E7-4E1C26114D67</div>
+            </figure></li>
+</ol>
+<p>这个系统报告里看看USB下面能不能读出</p>
+<p>也可以在bash里输入</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ls</span> <span class="string">/dev/tty</span>*</div></pre></td></tr></table></figure>
+<p>如果有类似的即可<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90.png?imageView2/0/q/100" alt="2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90" title="">
+                </div>
+                <div class="image-caption">2C66575E-D0DD-4DEA-9F34-8F2E1CF4DA90</div>
+            </figure></p>
+<ol>
+<li><p><a href="http://www.wch.cn/download/CH341SER_MAC_ZIP.html" target="_blank" rel="noopener">官方驱动下载</a><br>如果都找不到的话可以去沁恒官方下载CH341SER驱动，安装后再查看一遍(安装驱动完会要求重启).</p>
+</li>
+<li><p>更改SIP设置</p>
+<blockquote>
+<p>Apple在10.11中全面启用了名为 System Integrity Protection (SIP) 的系统完整性保护技术. 受此影响, 未经签名的第三方kext及经过修改的原版kext将无法正常加载, 大部分系统文件即使在root用户下也无法直接进行修改.    </p>
+</blockquote>
+</li>
+</ol>
+<p>前面安装驱动不成功大部分是因为驱动文件冲突导致，所以在此之前先删除之前安装的驱动文件:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo rm -rf /System/Library/Extensions/usb<span class="selector-class">.kext</span></div><div class="line">sudo rm -rf /Library/Extensions/usbserial<span class="selector-class">.kext</span></div><div class="line">sudo rm -rf _private_var_db_receipts/com<span class="selector-class">.wch</span>.*</div></pre></td></tr></table></figure>
+<p>然后参考<a href="https://tzapu.com/making-ch340-ch341-serial-adapters-work-under-el-capitan-os-x/" target="_blank" rel="noopener">CH340 CH341 serial adapters fix for El Capitan OS X</a>可以通过以下步骤修改SIP设置来安装第三方kext:</p>
+<ol>
+<li>重启OS X 并且立即按住 Command+ R 来来进入恢复模式</li>
+<li>在恢复模式中, 菜单栏上面找到终端(Terminal)并打开</li>
+<li>在终端中键入命令<code>csrutil enable —without kext</code></li>
+<li>看到成功的提示信息之后, 输入reboot重启系统<blockquote>
+<p>注: <code>—without kext 中的</code> - 有两条<br>Command 就是 ⌘ 图标  </p>
+</blockquote>
+</li>
+</ol>
+<p>通过以上的操作之后, 采用CH340/1 系列芯片的Arduino开发板又可以被识别出来了. 如果还是无法识别, 请重新安装一次CH341SER驱动.</p>
+<ul>
+<li>最后如果还不行(我的就是到这里还不行)，请看看你的板子是否接触不良，反复摩擦尝试看能不能读出串口，我之前也试过这个办法，但是没有用，后面偶然也是必然下反应过来，反反复复插USB拔出查看串口状态，终于解决了(无良商家害人)</li>
+</ul>
+<blockquote>
+<p>参考:<br><a href="https://support.apple.com/zh-tw/HT204063" target="_blank" rel="noopener">如何重置 Mac 上的 NVRAM</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-12T14:23:28.810Z" itemprop="dateUpdated">2018-01-12 22:23:28</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bug/">Bug</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&title=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&title=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">OC中ARC forbids explicit message send of &#39;...&#39;错误</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《TCP/IP详解》笔记—第1章 概述</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&title=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&title=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决Arduino CH34x系列在macOS Sierra中找不到串口的问题》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD40lEQVR42u3aS3LbQAwFwNz/0s42VYmo9wAo9qK5csnScKa5APH59Su+vv66/v781fefv/n8qz8/b9d/vtfqwoEDBw4c5VHbmz1v4hkiP8bzrpLdPp8RBw4cOHDccry6/au/n8Ph8y1n4TDfT0uMAwcOHDh+AscmG8rXb4Nri44DBw4cOH4CRxtW8+JgWy5MSo04cODAgeO7OPKgmIfbJLi2raxknf9UK8WBAwcOHJNIV6RzP/nvj8x34MCBAweOuHiXB6T28+e7Xz2e2YUDBw4cOPYcn9v67VFnY3azJBMHDhw4cHyCIykLboprbSFvhj57RcCBAwcOHLcc+xZRe8hZwylnqscdcODAgQPHEcfVkZLkKj/AbJ1ZyMeBAwcOHLcc7abbxk+bHLaBtm2bvZkcxIEDBw4cRxz7El5ypJw4D+0535sEDwcOHDhwLDj2DadNaa9dISFeJZY4cODAgeOII0l12hGB2VHzA+etsuIFAgcOHDhwnHLkowB56J21tZLD5CsXbSocOHDgwHHEkQe223A43HQ5GFeEfxw4cODAccSRb2iTzu1D6ab1lfwKBw4cOHDsOfJWzRVNe/hPvAS8OTUOHDhw4FhzJJsuxgJGLat8hG4WvOv948CBAweOm/3XYe/5yhOttnTYHnv2EoADBw4cOFqOTQCblQXb9XPETYEy6sLhwIEDB450V3Wg3YfY9mCzI7Xr48CBAweOPcfMbD9S0N7r+S5nxUccOHDgwHHEcRtQN6MJVwdLhjBeFgdx4MCBA8eCYxZcZyXCPFgmcO2gwzEKDhw4cOAIOPImTV6SSwJ28nw2qw0rpjhw4MCBY8SRb6sdZdvwzQqReSh9uXMcOHDgwHHKkQeqPHHKi4Z5cbBN+YrMFQcOHDhwHHFchaukkLcfidu0r96cEQcOHDhwrDnyoHvb4GnXT0LmButl2wkHDhw4cCw42oRnNmSW3D4PrklxM38kOHDgwIFjz5GEvbzAl5f/8meVh+F2mO8f/8WBAwcOHKccbdDK4WYhcD/9N0zScODAgQPHmmMz7rBJnPJi4qfbUThw4MCB44rjE2lS20BKVssHIzYDEzhw4MCBY8/xVV5tMJslbPkh8+C9ymhx4MCBA0dXQ6sHEWbD2W161j6ePKAW6RwOHDhw4BhxJLfcjKC1gXCfUuaB9k1GiwMHDhw4Fhybkt9s5C5P2G4HHd78FgcOHDhwfBNHHupmwS9J/9p2VPR9HDhw4MDxTRy3DarZsfM0sgjtOHDgwIHjiCMpDuaNnFkSuC9Wtmnequ2EAwcOHDjWAw2zds4m3WoTxf3jxIEDBw4cC47fMy7Dpv3IhkoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

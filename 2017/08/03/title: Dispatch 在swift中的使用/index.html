@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Dispatch 在swift中的使用 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Swift">
+    <meta name="description" content="创建队列当group里所有事件都完成GCD API有两种方式发送通知，第一种是dispatch_group_wait，会阻塞当前进程，等所有任务都完成或等待超时。第二种方法是使用dispatch_group_notify，异步执行闭包，不会阻塞。 1234567891011121314151617181920212223242526272829func downloadPhotosWithComp">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dispatch 在swift中的使用">
+<meta property="og:url" content="http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="创建队列当group里所有事件都完成GCD API有两种方式发送通知，第一种是dispatch_group_wait，会阻塞当前进程，等所有任务都完成或等待超时。第二种方法是使用dispatch_group_notify，异步执行闭包，不会阻塞。 1234567891011121314151617181920212223242526272829func downloadPhotosWithComp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-13T12:28:30.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dispatch 在swift中的使用">
+<meta name="twitter:description" content="创建队列当group里所有事件都完成GCD API有两种方式发送通知，第一种是dispatch_group_wait，会阻塞当前进程，等所有任务都完成或等待超时。第二种方法是使用dispatch_group_notify，异步执行闭包，不会阻塞。 1234567891011121314151617181920212223242526272829func downloadPhotosWithComp">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Dispatch 在swift中的使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Dispatch 在swift中的使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-03T01:49:00.000Z" itemprop="datePublished" class="page-time">
+  2017-08-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建队列"><span class="post-toc-number">1.</span> <span class="post-toc-text">创建队列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Serial-Queues"><span class="post-toc-number">2.</span> <span class="post-toc-text">Serial Queues</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Concurrent-Queues"><span class="post-toc-number">3.</span> <span class="post-toc-text">Concurrent Queues</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Concurrent-Queue-with-Barrier"><span class="post-toc-number">4.</span> <span class="post-toc-text">Concurrent Queue with Barrier</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#延时"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">延时</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: Dispatch 在swift中的使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Dispatch 在swift中的使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-03 09:49:00" datetime="2017-08-03T01:49:00.000Z"  itemprop="datePublished">2017-08-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="创建队列"><a href="#创建队列" class="headerlink" title="创建队列"></a>创建队列</h2><p>当group里所有事件都完成GCD API有两种方式发送通知，第一种是dispatch_group_wait，会阻塞当前进程，等所有任务都完成或等待超时。第二种方法是使用dispatch_group_notify，异步执行闭包，不会阻塞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">func downloadPhotosWithCompletion(completion: BatchPhotoDownloadingCompletionClosure?) &#123;</div><div class="line">     dispatch_async(GlobalUserInitiatedQueue) &#123; // 因为dispatch_group_wait会租塞当前进程，所以要使用dispatch_async将整个方法要放到后台队列才能够保证主线程不被阻塞</div><div class="line">          var storedError: NSError!</div><div class="line">          var downloadGroup = dispatch_group_create() // 创建一个dispatch group</div><div class="line"></div><div class="line">          for address in [OverlyAttachedGirlfriendURLString,</div><div class="line">               SuccessKidURLString,</div><div class="line">               LotsOfFacesURLString]</div><div class="line">          &#123;</div><div class="line">               let url = NSURL(string: address)</div><div class="line">               dispatch_group_enter(downloadGroup) // dispatch_group_enter是通知dispatch group任务开始了，dispatch_group_enter和dispatch_group_leave是成对调用，不然程序就崩溃了。</div><div class="line">               let photo = DownloadPhoto(url: url!) &#123;</div><div class="line">                    image, error in</div><div class="line">                    if let error = error &#123;</div><div class="line">                         storedError = error</div><div class="line">                    &#125;</div><div class="line">                    dispatch_group_leave(downloadGroup) // 保持和dispatch_group_enter配对。通知任务已经完成</div><div class="line">               &#125;</div><div class="line">               PhotoManager.sharedManager.addPhoto(photo)</div><div class="line">          &#125;</div><div class="line"></div><div class="line">          dispatch_group_wait(downloadGroup, DISPATCH_TIME_FOREVER) // dispatch_group_wait等待所有任务都完成直到超时。如果任务完成前就超时了，函数会返回一个非零值，可以通过返回值判断是否超时。也可以用DISPATCH_TIME_FOREVER表示一直等。</div><div class="line">          dispatch_async(GlobalMainQueue) &#123; // 这里可以保证所有图片任务都完成，然后在main queue里加入完成后要处理的闭包，会在main queue里执行。</div><div class="line">               if let completion = completion &#123; // 执行闭包内容</div><div class="line">                    completion(error: storedError)</div><div class="line">               &#125;</div><div class="line">          &#125;</div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Serial-Queues"><a href="#Serial-Queues" class="headerlink" title="Serial Queues"></a>Serial Queues</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">private let serialQueue = DispatchQueue(label: “serialQueue”)</div><div class="line">private var dictionary: [String: Any] = [:]</div><div class="line"></div><div class="line">public func set(_ value: Any, forKey key: String) &#123;</div><div class="line">    serialQueue.sync &#123;</div><div class="line">        dictionary[key] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func object(forKey key: String) -&gt; Any? &#123;</div><div class="line">    var result: Any?</div><div class="line">       </div><div class="line">    serialQueue.sync &#123;</div><div class="line">        result = storage[key]</div><div class="line">    &#125;</div><div class="line">    // returns after serialQueue is finished operation</div><div class="line">    // beacuse serialQueue is run synchronously</div><div class="line">    return result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Concurrent-Queues"><a href="#Concurrent-Queues" class="headerlink" title="Concurrent Queues"></a>Concurrent Queues</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">private let concurrentQueue = DispatchQueue(label: &quot;concurrentQueue&quot;, attributes: .concurrent)</div><div class="line">private var dictionary: [String: Any] = [:]</div><div class="line">    </div><div class="line">public func set(_ value: Any?, forKey key: String) &#123;</div><div class="line">    concurrentQueue.async &#123;</div><div class="line">        self.storage[key] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func object(forKey key: String) -&gt; Any? &#123;</div><div class="line">    var result: Any?</div><div class="line"></div><div class="line">    concurrentQueue.sync &#123;</div><div class="line">        result = storage[key]</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // returns after concurrentQueue is finished operation</div><div class="line">    // beacuse concurrentQueue is run synchronously</div><div class="line">    return result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Concurrent-Queue-with-Barrier"><a href="#Concurrent-Queue-with-Barrier" class="headerlink" title="Concurrent Queue with Barrier"></a>Concurrent Queue with Barrier</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">private let concurrentQueue = DispatchQueue(label: &quot;concurrentQueue&quot;, attributes: .concurrent)</div><div class="line">private var dictionary: [String: Any] = [:]</div><div class="line">    </div><div class="line">public func set(_ value: Any?, forKey key: String) &#123;</div><div class="line">    // .barrier flag ensures that within the queue all reading is done</div><div class="line">    // before the below writing is performed and</div><div class="line">    // pending readings start after below writing is performed</div><div class="line">    concurrentQueue.async(flags: .barrier) &#123;</div><div class="line">        self.storage[key] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func object(forKey key: String) -&gt; Any? &#123;</div><div class="line">    var result: Any?</div><div class="line"></div><div class="line">    concurrentQueue.sync &#123;</div><div class="line">        result = storage[key]</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // returns after concurrentQueue is finished operation</div><div class="line">    // beacuse concurrentQueue is run synchronously</div><div class="line">    return result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="延时"><a href="#延时" class="headerlink" title="延时"></a>延时</h3><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">typealias <span class="function"><span class="title">Task</span> = <span class="params">(_ cancel: Bool)</span> -&gt;</span> Void</div><div class="line"></div><div class="line">    func delay<span class="function"><span class="params">(time: TimeInterval, task: @escaping ()-&gt;())</span> -&gt;</span> Task? &#123;</div><div class="line">        func dispatch_later<span class="function"><span class="params">(block: @escaping ()-&gt;())</span> &#123;</span></div><div class="line">            <span class="title">DispatchQueue</span>.<span class="title">main</span>.<span class="title">asyncAfter</span><span class="params">(deadline: DispatchTime.now()+time, execute: block)</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="title">var</span> <span class="title">closure</span>: <span class="params">(()-&gt;())</span>? = <span class="title">task</span></div><div class="line">        <span class="title">var</span> <span class="title">result</span>: <span class="title">Task</span>?</div><div class="line"></div><div class="line">        <span class="title">let</span> <span class="title">delayedClosure</span>: <span class="title">Task</span> = &#123; <span class="title">cancel</span> <span class="title">in</span></div><div class="line">            <span class="title">if</span> <span class="title">let</span> <span class="title">internalClosure</span> = <span class="title">closure</span> &#123;</div><div class="line">                <span class="title">if</span> <span class="title">cancel</span> == <span class="title">false</span> &#123;</div><div class="line">                    <span class="title">DispatchQueue</span>.<span class="title">main</span>.<span class="title">async</span> &#123;</div><div class="line">                        <span class="title">internalClosure</span><span class="params">()</span></div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="title">closure</span> = <span class="title">nil</span></div><div class="line">            <span class="title">result</span> = <span class="title">nil</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="title">result</span> = <span class="title">delayedClosure</span></div><div class="line">        <span class="title">dispatch_later</span> &#123;</div><div class="line">            <span class="title">if</span> <span class="title">let</span> <span class="title">delayedClosure</span> = <span class="title">result</span> &#123;</div><div class="line">                <span class="title">delayedClosure</span><span class="params">(<span class="literal">false</span>)</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="title">return</span> <span class="title">result</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="title">func</span> <span class="title">cancel</span><span class="params">(task: Task?)</span> &#123;</div><div class="line">        <span class="title">task</span>?<span class="params">(<span class="literal">true</span>)</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务"><a href="#网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务" class="headerlink" title="网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务"></a>网络场景异步开启下载、取消下载，开始下载前保证没有遗留下载任务</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="keyword">let</span> barrierQueue = <span class="type">DispatchQueue</span>(label: <span class="string">"com.meitu.meipu.videoCache.barrierQueue"</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">downloader</span><span class="params">(url: URL)</span></span> &#123;</div><div class="line">        barrierQueue.sync &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></div><div class="line">            <span class="comment">// add downloader task</span></div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">cancel</span><span class="params">()</span></span> &#123;</div><div class="line">    barrierQueue.async(group: <span class="literal">nil</span>, qos: .<span class="keyword">default</span>, flags: .barrier) &#123;</div><div class="line">        <span class="comment">// cacle task    </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考:<br><a href="https://swiftcafe.io/2016/10/16/swift-gcd/" target="_blank" rel="noopener">GCD 在 Swift 3 中的玩儿法</a><br><a href="http://swift.gg/2016/05/05/the-gcd-handbook/" target="_blank" rel="noopener">GCD 使用指南</a><br><a href="http://swift.gg/2016/11/30/grand-central-dispatch/" target="_blank" rel="noopener">Swift 3 中的 GCD 与 Dispatch Queue</a><br><a href="https://www.appcoda.com.tw/grand-central-dispatch/" target="_blank" rel="noopener">Swift 3學習指南：重新認識GCD應用</a><br><a href="http://blog.csdn.net/hello_hwc/article/details/54293280" target="_blank" rel="noopener">GCD精讲（Swift 3）</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-13T12:28:30.884Z" itemprop="dateUpdated">2018-01-13 20:28:30</time>
+</span><br>
+
+
+        
+        <a href="/2017/08/03/title: Dispatch 在swift中的使用/" target="_blank" rel="external">http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&title=《Dispatch 在swift中的使用》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&title=《Dispatch 在swift中的使用》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dispatch 在swift中的使用》 — CodingDoge&url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/03/title: 错误处理/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">错误处理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/02/title: Dispatch/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Dispatch</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&title=《Dispatch 在swift中的使用》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&title=《Dispatch 在swift中的使用》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dispatch 在swift中的使用》 — CodingDoge&url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/08/03/title: Dispatch 在swift中的使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3aS07EQAwFwLn/pWHLghmefzBIlRVKQtIVpLax/XjEx8eT4/XVr/d8vTM5kzxt7cDDw8NbWnoCyJf47Gp1beVPgIeHh3fGe/bo1/fkV/N7ks+RrBkPDw/vPXn5+UkKjoeHh/ffeUlBIQkMrwPGaxIeHh7eO/DyckO1NND73eRzL9da8PDw8A66SO/z80l/Dw8PD2/cVa8OAVQHDvLEurlaPDw8vAPe1kInBYX8I1bXiYeHh/ebvHzUKW999QoW1Q/0zRrw8PDwVnmTJU4S3+Qtedl31NnDw8PDG/N6Dfv8xdVxgTxNLyfTeHh4eC1eb3Rgq1xbTZ2rRWQ8PDy8C16e5uabeLK5508epdd4eHh4B7x8/8zDQ2+Xrv5u4e14eHh4q7zkZckG3QNP7kySeDw8PLwLXh4G8m09T4V79+d/GDw8PLzf4VWbVUlhIj+T3194Dh4eHt4qLy+Y5uWDyThCFRMl03h4eHgHvF63vTd+mgeYXituNFOGh4eHNw4SvWS3WgeYBJtCqwwPDw9vlZcUHZKlXwSMXjkYDw8P746Xp7OT10/KEI/4iFpfeHh4eEu8ZItPyqnVAsc8IJWTaTw8PLwlXq/kmhcg8nLDVnDCw8PDu+PlG+6kFDsJNlvhBA8PD2+X12tEJaXbHDP/lNHQAB4eHt4qr1reTc5PPkRSzMXDw8P7W161WdUbDuiVKkYHHh4e3irvo3jMC7X50EBepHj6Ljw8PLwDXm+PzRtXvdQ8D04nIQQPDw9vnHnmC51s+nnIKb8XDw8P74w3SYJ3g8c8gC3MRODh4eGd8fKNvoqpXl2eJsPDw8M74CXl1GppI0+yC80zPDw8vDNePhq1sFnHa+iNI+Dh4eFd86r/5PcS6ITUGxRY6+/h4eHh/Xx8AnQJNcqCNwAVAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

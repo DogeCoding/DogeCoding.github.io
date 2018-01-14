@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Search in Rotated Sorted Array | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="LeetCode">
+    <meta name="description" content="题目来源LeetCode: LeetCode OJ      题目描述: Suppose a sorted array is rotated at some pivot unknown to you beforehand.(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).You are given a target value to search.">
+<meta name="keywords" content="LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Search in Rotated Sorted Array">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="题目来源LeetCode: LeetCode OJ      题目描述: Suppose a sorted array is rotated at some pivot unknown to you beforehand.(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).You are given a target value to search.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-12T14:25:37.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Search in Rotated Sorted Array">
+<meta name="twitter:description" content="题目来源LeetCode: LeetCode OJ      题目描述: Suppose a sorted array is rotated at some pivot unknown to you beforehand.(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).You are given a target value to search.">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Search in Rotated Sorted Array</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Search in Rotated Sorted Array</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:56:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目解释"><span class="post-toc-number">1.</span> <span class="post-toc-text">题目解释</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Code"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Code</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#拓展"><span class="post-toc-number"></span> <span class="post-toc-text">拓展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分析-1"><span class="post-toc-number">1.</span> <span class="post-toc-text">分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Code-1"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Code</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#相关题目"><span class="post-toc-number">2.</span> <span class="post-toc-text">相关题目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#相关题目分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">相关题目分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Code-2"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Code</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: Search in Rotated Sorted Array  "
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Search in Rotated Sorted Array</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:56:00" datetime="2017-07-23T15:56:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>题目来源LeetCode: <strong><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">LeetCode OJ</a></strong>  </p>
+</blockquote>
+<hr>
+<blockquote>
+<p>题目描述: Suppose a sorted array is rotated at some pivot unknown to you beforehand.<br>(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).<br>You are given a target value to search. If found in the array return its index, otherwise return -1.<br>You may assume no duplicate exists in the array.  </p>
+</blockquote>
+<h2 id="题目解释"><a href="#题目解释" class="headerlink" title="题目解释"></a>题目解释</h2><p>一个排好序的数组，不知道以哪个点为中心旋转了(部分有序)，你的任务是查找给定的数是否存在数组中。在的话返回下标，不在的话返回－1. </p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>查找首先想到O(log(n))的二分查找，但是二分查找的前提是有序数组。题目里一个有序数组旋转后变成了部分有序。通过比较两端大小找到增序部分。  </p>
+<blockquote>
+<p>eg: 4 5 6 0 1 2 3<br>first = 4, mid = 0, last = 3，<br>通过比较first,mid,last找到增序部分。<br>在这个例子中为1 2 3，<br>然后判断target是否在这个增序子序列中，<br>如果在则直接用二分查找，<br>不在则在另一部分(例子中为4 5 6 0)中继续分解。</p>
+</blockquote>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="//">int search(const vector&lt;int&gt;&amp; nums, int target)
+{
+    int first = 0;
+    int last = nums.size();
+    while(first != last)
+    {
+        const int mid = (first+last)&gt;&gt;1;    // 使用位运算加速
+        if(nums[mid] == target)
+            return mid;
+        if(nums[first] &lt;= nums[mid])    // 找到增序子序列
+            if(nums[first]&lt;=target &amp;&amp; target&lt;nums[mid])    // 找到target在哪个部分
+                last = mid;
+            else
+                first = mid+1;
+        else
+            if(nums[mid]&lt;target &amp;&amp; target&lt;=nums[last-1])
+                first = mid+1;
+            else
+                last = mid;
+    }
+    return -1;
+}
+</code></pre>
+<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><p>当数组为无序时的二分查找  </p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>一种是先排序再二分，一种是结合快排思想，每次选择一个关键字，比他大的放右边，比他小的放左边，然后再比较他和需要查找的数的关系，再选择区间进行迭代。如果需要返回查找数的下标，则添加一个纪录下标的数组，这样排好序后也能知道当前数在原始数组中的位置。  </p>
+<blockquote>
+<p>初始数组3 1 2 5 4 7 0 6<br>mid = key = 3 进行一次快排填坑<br>得到数组0 1 2 3 4 7 5 6<br>比较mid与target<br>如果target&gt;mid则迭代mid后半部分<br>如果target&lt;mid则迭代mid前半部分<br>直到找到target  </p>
+</blockquote>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><pre><code class="//">int BinarySearch(vector&lt;int&gt;&amp; nums, int target)
+{
+    int num = nums.size();
+    int index[num];        // index数组纪录下标 以便能找到在数组的初始位置
+    for(int i = 0; i &lt; num; i++)    // 初始化index数组
+        index[i] = i;
+    int l, r, m, sl, sr, mIndex;
+    l = 0, r = num-1;
+    while(l&lt;=r)        // 开始迭代
+    {
+        mIndex = index[l], m = nums[l];
+        sl = l, sr = r;
+        while(sl&lt;sr)    // 快排思想，左右填坑，并用index记录位置
+        {
+            while(sl&lt;sr &amp;&amp; m&lt;nums[sr])
+                sr--;
+            nums[sl] = nums[sr];
+            index[sl] = index[sr];
+            while(sl&lt;sr &amp;&amp; m&gt;nums[sl])
+                sl++;
+            nums[sr] = nums[sl];
+            index[sr] = index[sl];
+        }
+        nums[sl] = m;
+        index[sl] = mIndex;
+        if(m == target)
+            return mIndex;
+        if(target &gt; m)        // 判断target在哪个区间
+            l = sl+1;
+        else
+            r = sl-1;
+    }
+    return -1;
+}
+</code></pre>
+<h2 id="相关题目"><a href="#相关题目" class="headerlink" title="相关题目"></a>相关题目</h2><p><a href="https://leetcode.com/problems/search-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">Search in Rotated Sorted Array II</a>  </p>
+<h2 id="相关题目分析"><a href="#相关题目分析" class="headerlink" title="相关题目分析"></a>相关题目分析</h2><p>因为允许出现重复数字，但是数组还是部分有序的，所以跳过重复数字即可  </p>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><pre><code class="//">int search(const vector&lt;int&gt;&amp; nums, int target)
+{
+    int first = 0;
+    int last = nums.size();
+    while(first != last)
+    {
+            const int mid = (first+last)&gt;&gt;1;
+        if(nums[mid] == target)
+            return mid;
+        if(nums[first] &lt; nums[mid])
+            if(nums[first]&lt;=target &amp;&amp; target&lt;nums[mid])
+                last = mid;
+            else
+                first = mid+1;
+        else if(nums[first] &gt; nums[mid])
+        {
+            if(nums[mid]&lt;target &amp;&amp; target&lt;=nums[last-1])
+                first = mid+1;
+            else
+                last = mid;
+        }
+        else    // 特判相等时跳过
+            first++;
+    }
+    return -1;
+}
+</code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-12T14:25:37.504Z" itemprop="dateUpdated">2018-01-12 22:25:37</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: Search in Rotated Sorted Array  /" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&title=《Search in Rotated Sorted Array》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&title=《Search in Rotated Sorted Array》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Search in Rotated Sorted Array》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/25/title: 剑指Offer —— 滑动窗口的最大值/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">剑指Offer —— 滑动窗口的最大值</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: Remove Duplicates from Sorted Array  /" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Remove Duplicates from Sorted Array</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&title=《Search in Rotated Sorted Array》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&title=《Search in Rotated Sorted Array》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Search in Rotated Sorted Array》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: Search in Rotated Sorted Array  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3a22rDQAwFwPz/T6evhWDn6LJpCrNPobj2zgYsRdLjEa/nr3X199drXj9Xr7m6cnnh4eHhDbZ+f+v7v9xfmX++32e+Zzw8PLzTvOR21Qcnr/sqI98zHh4e3rfxqg97xitJ6PHw8PD+L+/IhoqpOR4eHt5f8XoF2WSjSXI8T7UXai14eHh4taw16iJ9z+cj/T08PDy8cVe9VyboBY+cV9gtHh4e3gFetW3fKzH0RhMm4wV4eHh4n+T1ig7zAaykNNws5uLh4eEd4OWl2OQIcmSV3STh4eHhHeBNGlflBLdYMq7yCpMReHh4eC1erwE/afYn/alqqGg2wPDw8PBavOT12rvR1qBqkogXvh48PDy8MW8SErYS4t3W1yOPPHh4eHgt3iRpPt3WSsDNQgkeHh7egDcvmOYpb14KmQSbN9NkeHh4eEu8pISab6J3KLul3stiBB4eHt6Yt5soP+M1Sd8XOn54eHh4A958OLX3+u4l4uXOHh4eHt4BXs7Iw8Bu2KhGucv74OHh4S3xks7Y/Rbz4JHnutUju/wvPDw8vAO8reGqatssKWr0DqU8dIWHh4dX5O2+6KtDA3nTq/qVNPt7eHh4eDGv99rNHz8pQ1SDzWWVGg8PD2+JNxl7qrapzt3/zaHj4eHhHeNtvax7CXc+VtUcGsDDw8P7IK866tRrSuXJffkrwcPDwzvG67X2e5u73+JjsN78YsDDw8Mb857Flbz6q8MBeYG4HGbw8PDwDvAm8SR5WF6GyI+yCcDDw8Nb5e0Gg+QIkuurpY1RlRoPDw+vxeuVVqvJ8YkCxBsLHh4e3tfwkvb/ZECh1zDDw8PD+07efTqbJ769wFMOKnh4eHjHePm41aT8em6MoDlThoeHh9fiVX/kJyXUvMGfDwos9/Tw8PDwOrwfSwnPFMebKUwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

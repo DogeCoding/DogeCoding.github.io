@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>视频开发 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Swift">
+    <meta name="description" content="下面會介紹視頻的一些基本知識，和在iOS上實現視頻播放和緩存的幾種方案。   软解码和硬解码GPU解码就是所谓的硬解码，CPU解码就是软解码。iOS提供的播放器类使用的是硬解码，所以视频播放对CPU不会有很大的压力，但是支持的播放格式比较单一，一般就是MP4、MOV、M4V这几个。 HTTP Live StreamingHTTP Live Streaming（缩写是 HLS）是一个由苹果公司提出的">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频开发">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: 视频开发/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="下面會介紹視頻的一些基本知識，和在iOS上實現視頻播放和緩存的幾種方案。   软解码和硬解码GPU解码就是所谓的硬解码，CPU解码就是软解码。iOS提供的播放器类使用的是硬解码，所以视频播放对CPU不会有很大的压力，但是支持的播放格式比较单一，一般就是MP4、MOV、M4V这几个。 HTTP Live StreamingHTTP Live Streaming（缩写是 HLS）是一个由苹果公司提出的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/15009677046266.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/15012312808745.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/15003581605281.jpg?imageView2/0/q/100">
+<meta property="og:updated_time" content="2018-01-13T05:06:57.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="视频开发">
+<meta name="twitter:description" content="下面會介紹視頻的一些基本知識，和在iOS上實現視頻播放和緩存的幾種方案。   软解码和硬解码GPU解码就是所谓的硬解码，CPU解码就是软解码。iOS提供的播放器类使用的是硬解码，所以视频播放对CPU不会有很大的压力，但是支持的播放格式比较单一，一般就是MP4、MOV、M4V这几个。 HTTP Live StreamingHTTP Live Streaming（缩写是 HLS）是一个由苹果公司提出的">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/15009677046266.png?imageView2/0/q/100">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">视频开发</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">视频开发</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:47:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#播放"><span class="post-toc-number">1.</span> <span class="post-toc-text">播放</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、自己实现对数据编码解码"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">一、自己实现对数据编码解码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、AVFoundation"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">二、AVFoundation</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVAsset"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">AVAsset</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVPlayer"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">AVPlayer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVPlayerItem"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">AVPlayerItem</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVPlayerLayer"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">AVPlayerLayer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单使用"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">简单使用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#缓存"><span class="post-toc-number">2.</span> <span class="post-toc-text">缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、自己实现的播放器"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">一、自己实现的播放器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、自带播放器-LocalServer"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">二、自带播放器+LocalServer</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、AVPlayer-AVMutableComposition-AVAssetExportSession"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">三、AVPlayer+AVMutableComposition+AVAssetExportSession</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVMutableComposition"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">AVMutableComposition</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVAssetExportSession"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">AVAssetExportSession</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、AVPlayer-AVAssetResourceLoader"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">四、AVPlayer+AVAssetResourceLoader</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AVAssetResourceLoadingRequest"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">AVAssetResourceLoadingRequest</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: 视频开发"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">视频开发</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:47:00" datetime="2017-07-23T15:47:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>下面會介紹視頻的一些基本知識，和在iOS上實現視頻播放和緩存的幾種方案。</p>
+<blockquote>
+<ul>
+<li><strong>软解码和硬解码</strong><br>GPU解码就是所谓的硬解码，CPU解码就是软解码。iOS提供的播放器类使用的是硬解码，所以视频播放对CPU不会有很大的压力，但是支持的播放格式比较单一，一般就是MP4、MOV、M4V这几个。</li>
+<li><strong>HTTP Live Streaming</strong><br>HTTP Live Streaming（缩写是 HLS）是一个由苹果公司提出的基于HTTP的流媒体网络传输协议。它的工作原理是把整个流分成一个个小的基于HTTP的文件来下载，每次只下载一些。当媒体流正在播放时，客户端可以选择从许多不同的备用源中以不同的速率下载同样的资源，允许流媒体会话适应不同的数据速率。支持的视频流编码为H.264。我们在视频网站上看到的M3U8后缀的播放链接就是使用HLS协议的视频。HLS优点，1、看完一段缓存一段，防止只看一段视频但是把整个视频文件都缓存下来的用户，减少服务器压力和节省流量。2、根据用户网速切换不同的码率，兼顾流程性和清晰度。</li>
+</ul>
+</blockquote>
+<h1 id="播放"><a href="#播放" class="headerlink" title="播放"></a>播放</h1><p>实现视频播放的两个方案。</p>
+<hr>
+<h2 id="一、自己实现对数据编码解码"><a href="#一、自己实现对数据编码解码" class="headerlink" title="一、自己实现对数据编码解码"></a>一、自己实现对数据编码解码</h2><p>可以在一些开源播放器上进行二次开发，如Bilibili的<a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">ijkplayer</a>，或者直接对<a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener">FFmpeg</a>开发，优点在整个播放过程可控，为后续进行缓存、流量控制、码率切换等开发提供了基础，缺点是复杂，要求高，工程量大。</p>
+<hr>
+<h2 id="二、AVFoundation"><a href="#二、AVFoundation" class="headerlink" title="二、AVFoundation"></a>二、AVFoundation</h2><p>Media Assets, Playback and Editing. 使用Apple自有框架。</p>
+<h3 id="AVAsset"><a href="#AVAsset" class="headerlink" title="AVAsset"></a>AVAsset</h3><blockquote>
+<p>AVAsset is an abstract, immutable class used to model timed audiovisual media such as videos and sounds. An asset may contain one or more tracks that are intended to be presented or processed together, each of a uniform media type, including but not limited to audio, video, text, closed captions, and subtitles.</p>
+</blockquote>
+<p>Audiovisual media的资源类，通常通过<code>AVURLAsset</code>用URL来实例化，可以用<a href="https://developer.apple.com/download/more/" target="_blank" rel="noopener">Atom Inspector</a>(一个Apple提供的用来查看视频信息的工具)来观察一个视频的属性，再去<code>AVAsset</code>中对应其属性。</p>
+<table>
+<thead>
+<tr>
+<th>AVAsset属性</th>
+<th>视频文件属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>duration: CMTime</td>
+<td>duration, timescale时长和时间尺度</td>
+</tr>
+<tr>
+<td>preferredRate: Float</td>
+<td>默认速度</td>
+</tr>
+<tr>
+<td>preferredVolume: Float</td>
+<td>默认音量</td>
+</tr>
+<tr>
+<td>creationDate: AVMetadataItem?</td>
+<td>视频创建时间</td>
+</tr>
+<tr>
+<td>tracks: [AVAssetTrack]</td>
+<td>轨道</td>
+</tr>
+<tr>
+<td>trackGroups: [AVAssetTrackGroup]</td>
+<td>轨道组</td>
+</tr>
+<tr>
+<td>lyrics: String?</td>
+<td>当前语言环境合适的歌词</td>
+</tr>
+<tr>
+<td>metadata: [AVMetadataItem]</td>
+<td>元数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="AVPlayer"><a href="#AVPlayer" class="headerlink" title="AVPlayer"></a>AVPlayer</h3><blockquote>
+<p>An AVPlayer is a controller object used to manage the playback and timing of a media asset. It provides the interface to control the player’s transport behavior such as its ability to play, pause, change the playback rate, and seek to various points in time within the media’s timeline. You can use an AVPlayer to play local and remote file-based media, such as QuickTime movies and MP3 audio files, as well as audiovisual media served using HTTP Live Streaming.</p>
+</blockquote>
+<p>AVPlayer是一个控制对象用于管理媒体asset的播放，它提供了相关的接口控制播放器的行为，比如：播放、暂停、改变播放的速率、跳转到媒体时间轴上的某一个点（简单理解就是实现拖动功能显示对应的视频位置内容）。我们能够使用AVPlayer播放本地和远程的媒体文件（使用 HTTP Live Streaming），比如： QuickTime movies 和 MP3 audio files，所以AVPlayer可以满足音视频播放的基本需求。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/15009677046266.png?imageView2/0/q/100" alt="AVFoundation的层次" title="">
+                </div>
+                <div class="image-caption">AVFoundation的层次</div>
+            </figure></p>
+<h3 id="AVPlayerItem"><a href="#AVPlayerItem" class="headerlink" title="AVPlayerItem"></a>AVPlayerItem</h3><blockquote>
+<p>AVPlayerItem models the timing and presentation state of an asset played by an AVPlayer object. It provides the interface to seek to various times in the media, determine its presentation size, identify its current time, and much more. </p>
+</blockquote>
+<p><code>AVPlayerItem</code>是一个负责处理<code>AVAsset</code>的资源并通过<code>AVPlayer</code>来播放的载体，提供了<code>seek</code>、确定显示大小、ID、时间等的接口。</p>
+<h3 id="AVPlayerLayer"><a href="#AVPlayerLayer" class="headerlink" title="AVPlayerLayer"></a>AVPlayerLayer</h3><blockquote>
+<p>AVPlayerLayer is a subclass of CALayer to which an AVPlayer object can direct its visual output. It can be used as the backing layer for a UIView or NSView or can be manually added to the layer hierarchy to present your video content on screen.</p>
+</blockquote>
+<p>负责<code>AVPlayer</code>的视频输出展示。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/15012312808745.png?imageView2/0/q/100" alt="依赖关系图" title="">
+                </div>
+                <div class="image-caption">依赖关系图</div>
+            </figure>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class AVPlayerTestView: UIView &#123;</div><div class="line">    let view: UIView? = nil</div><div class="line">    func initPlayerView() &#123;</div><div class="line">        guard let url = URL.init(string: &quot;http://meipu1.video.meipai.com/5e81c08e-2850-4fbd-bfc4-4ded297f9f1c.mp&quot;) else &#123; return &#125;</div><div class="line">        let asset = AVAsset.init(url: url)</div><div class="line">        let item = AVPlayerItem.init(asset: asset)</div><div class="line">        let player = AVPlayer.init(playerItem: item)</div><div class="line">        let playerLayer = AVPlayerLayer.init(layer: player)</div><div class="line">        view?.layer.addSublayer(playerLayer)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>设置好一个<code>AVPlayer</code>的依赖关系和输出图层后，<code>AVPlayerItem</code>会根据你的URL去请求数据，自己内部做缓冲然后播放。我们需要做的是用KVO监听<code>AVPlayerItem</code>内部几个关键属性的状态，然后做出我们的处理。</p>
+<table>
+<thead>
+<tr>
+<th>AVPlayerItem属性</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status: AVPlayerItemStatus</td>
+<td></td>
+</tr>
+<tr>
+<td>.unknown: AVPlayerItemStatus</td>
+<td>未知状态</td>
+</tr>
+<tr>
+<td>.readyToPlay: AVPlayerItemStatus</td>
+<td>准备好去播放</td>
+</tr>
+<tr>
+<td>.failed: AVPlayerItemStatus</td>
+<td>资源无法被播放</td>
+</tr>
+<tr>
+<td>loadedTimeRanges: [NSValue]</td>
+<td>加载了的资源的时间范围(一般用来更新缓冲UI)</td>
+</tr>
+<tr>
+<td>playbackBufferEmpty: Bool</td>
+<td>没有缓冲数据</td>
+</tr>
+<tr>
+<td>playbackLikelyToKeepUp: Bool</td>
+<td>有足够的缓冲大致能播放无卡顿</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>General State Observations: You can use Key-value observing (KVO) to observe state changes to many of the player’s dynamic properties, such as its currentItem or its playback rate. You should register and unregister for KVO change notifications on the main thread. This avoids the possibility of receiving a partial notification if a change is being made on another thread. AVFoundation invokes observeValue(forKeyPath:of:change:context:) on the main thread, even if the change operation is made on another thread.</p>
+<hr>
+<p>基本状态观察者：你能够使用KVO来观察player动态属性的状态改变，比如像： currentItem 或者它的播放速度。我们应该在主线程注册和去除KVO，这能够避免如果在其它线程发送改变而导致接收局部通知，当发生通知，AVFoundation将在主线程调用observeValue(forKeyPath:of:change:context:) 方法，即使是在其他线程发生。</p>
+</blockquote>
+<p>KVO能够很好的观察生成的状态，但是并不能够观察播放时间的改变，所以AVPlayer提供了两个方法来观察时间的改变:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">    @param interval</div><div class="line">    调用block的时间间隔</div><div class="line">    @param queue</div><div class="line">    推荐使用串行队列，放在主线程就行了，并行队列会产生不明确的结果</div><div class="line">*/</div><div class="line">func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -&gt; Void) -&gt; Any &#123;</div><div class="line">    // 可以在里面去设置控制状态，刷新进度UI</div><div class="line">&#125;</div><div class="line"></div><div class="line">func addBoundaryTimeObserver(forTimes times: [NSValue], queue: DispatchQueue?, using block: @escaping () -&gt; Void) -&gt; Any</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips:</p>
+<ul>
+<li>创建多个<code>AVPlayerLayer</code>只有最近的layer才会显示视频帧</li>
+<li>可以创建多个<code>AVPlayerItem</code>来替换<code>AVPlayer</code>的当前item，<code>func replaceCurrentItem(with item: AVPlayerItem?)</code></li>
+<li>监听后要注意控制监听的生命周期</li>
+</ul>
+</blockquote>
+<h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><p>Apple自有的框架是没有提供缓存功能的，<code>AVPlayer</code>也没有提供直接获取其下载数据的接口，所以想做缓存只能自己来完整的实现。下面有几个方案。</p>
+<h2 id="一、自己实现的播放器"><a href="#一、自己实现的播放器" class="headerlink" title="一、自己实现的播放器"></a>一、自己实现的播放器</h2><p>这种情况大多是根据下载来的数据解码播放，下载的时候做下缓存就好了</p>
+<h2 id="二、自带播放器-LocalServer"><a href="#二、自带播放器-LocalServer" class="headerlink" title="二、自带播放器+LocalServer"></a>二、自带播放器+LocalServer</h2><p>在iOS本地开启<code>Local Server</code>服务，然后<code>MPMoviePlayerController</code>请求本地<code>Local Server</code>服务。本地<code>Local Server</code>服务再不停的去对应的视频地址获取视频流。本地Local Server请求的时候，就可以把视频流缓存在本地。<a href="http://code4app.com/ios/视频边下载边播放/5292c381cb7e8445678b5ac2#" target="_blank" rel="noopener">Demo来源:Code4App</a></p>
+<h2 id="三、AVPlayer-AVMutableComposition-AVAssetExportSession"><a href="#三、AVPlayer-AVMutableComposition-AVAssetExportSession" class="headerlink" title="三、AVPlayer+AVMutableComposition+AVAssetExportSession"></a>三、AVPlayer+AVMutableComposition+AVAssetExportSession</h2><p>原理是直接给<code>AVPlayer</code>传URL，让其内部自己去处理数据下载，然后通过<code>AVMutableComposition</code>和<code>AVAssetExportSession</code>从<code>AVAsset</code>提取视频的数据进行缓存。</p>
+<h3 id="AVMutableComposition"><a href="#AVMutableComposition" class="headerlink" title="AVMutableComposition"></a>AVMutableComposition</h3><blockquote>
+<p>AVMutableComposition is a mutable subclass of AVComposition you use when you want to create a new composition from existing assets. You can add and remove tracks, and you can add, remove, and scale time ranges.</p>
+</blockquote>
+<p>作用是从现有的<code>AVAsset</code>中创建出一个新的<code>AVComposition</code>，使用者能够从别的asset中提取他们的音频轨道或视频轨道，并且把它们添加到新建的composition中。</p>
+<h3 id="AVAssetExportSession"><a href="#AVAssetExportSession" class="headerlink" title="AVAssetExportSession"></a>AVAssetExportSession</h3><blockquote>
+<p>An AVAssetExportSession object transcodes the contents of an AVAsset source object to create an output of the form described by a specified export preset.</p>
+</blockquote>
+<p>作用是把<code>AVAsset</code>解码输出到本地文件中。</p>
+<p>关键需要把原先的<code>AVAsset(AVURLAsset)</code>实现的数据提取出来后拼接成另一个<code>AVAsset(AVComposition)</code>的数据然后解码输出，由于通过网络url下载下来的视频没有保存视频的原始数据（苹果没有暴露接口给我们获取），下载后播放的avasset不能使用<code>AVAssetExportSession</code>输出到本地文件，要曲线地把下载下来的视频通过重构成另外一个<code>AVAsset</code>实例才能输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">NSString *documentDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];</div><div class="line">NSString *myPathDocument = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@&quot;%@.mp4&quot;,[_source.videoUrl MD5]]];</div><div class="line"></div><div class="line"></div><div class="line">NSURL *fileUrl = [NSURL fileURLWithPath:myPathDocument];</div><div class="line"></div><div class="line">if (asset != nil) &#123;</div><div class="line">AVMutableComposition *mixComposition = [[AVMutableComposition alloc]init];</div><div class="line">AVMutableCompositionTrack *firstTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];</div><div class="line">[firstTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration) ofTrack:[[asset tracksWithMediaType:AVMediaTypeVideo]objectAtIndex:0] atTime:kCMTimeZero error:nil];</div><div class="line"></div><div class="line">AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];</div><div class="line">[audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration) ofTrack:[[asset tracksWithMediaType:AVMediaTypeAudio]objectAtIndex:0] atTime:kCMTimeZero error:nil];</div><div class="line"></div><div class="line">AVAssetExportSession *exporter = [[AVAssetExportSession alloc]initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];</div><div class="line">exporter.outputURL = fileUrl;</div><div class="line">if (exporter.supportedFileTypes) &#123;</div><div class="line">exporter.outputFileType = [exporter.supportedFileTypes objectAtIndex:0] ;</div><div class="line">exporter.shouldOptimizeForNetworkUse = YES;</div><div class="line">[exporter exportAsynchronouslyWithCompletionHandler:^&#123;</div><div class="line"></div><div class="line">&#125;];</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="四、AVPlayer-AVAssetResourceLoader"><a href="#四、AVPlayer-AVAssetResourceLoader" class="headerlink" title="四、AVPlayer+AVAssetResourceLoader"></a>四、AVPlayer+AVAssetResourceLoader</h2><h3 id="AVAssetResourceLoadingRequest"><a href="#AVAssetResourceLoadingRequest" class="headerlink" title="AVAssetResourceLoadingRequest"></a>AVAssetResourceLoadingRequest</h3><blockquote>
+<p>An AVAssetResourceLoader object mediates resource requests from an AVURLAsset object with a delegate object that you provide. When a request arrives, the resource loader asks your delegate if it is able to handle the request and reports the results back to the asset.<br><code>AVAssetResourceLoader</code>协调来自<code>AVURLAsset</code>的资源请求，你需要实现它的<code>delegate</code>。当收到一个请求时，<code>ResourceLoader</code>询问你的<code>delegate</code>是否能处理并将结果返回给<code>asset</code>。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/15003581605281.jpg?imageView2/0/q/100" alt="AVPlayer和AVAssetResourceLoader的层次结构" title="">
+                </div>
+                <div class="image-caption">AVPlayer和AVAssetResourceLoader的层次结构</div>
+            </figure>
+<p><code>AVAssetResourceLoader</code>通过你提供的委托对象去调节<code>AVURLAsset</code>所需要的加载资源。而很重要的一点是，<code>AVAssetResourceLoader</code>仅在<code>AVURLAsset</code>不知道如何去加载这个URL资源时才会被调用，就是说你提供的委托对象在<code>AVURLAsset</code>不知道如何加载资源时才会得到调用。一般我们可以更改URL的scheme用来隐藏真实的URL。如：</p>
+<blockquote>
+<p>参考<br><a href="http://www.cnblogs.com/kenshincui/p/4186022.html#video" target="_blank" rel="noopener">iOS开发系列–音频播放、录音、视频播放、拍照、视频录制</a><br><a href="http://blog.csdn.net/longshihua/article/details/53909733" target="_blank" rel="noopener">AVplayer实现播放本地和网络视频（Swift3.0）</a><br><a href="http://www.cnblogs.com/zy1987/p/5028624.html" target="_blank" rel="noopener">iOS视频流开发（2）—视频播放</a><br><a href="http://msching.github.io/blog/2016/05/24/audio-in-ios-9/" target="_blank" rel="noopener">iOS音频播放 (九)：边播边缓存</a><br><a href="http://sky-weihao.github.io/2015/10/06/Video-streaming-and-caching-in-iOS/" target="_blank" rel="noopener">iOS音视频实现边下载边播放</a><br><a href="http://www.jianshu.com/p/9805be76ee68" target="_blank" rel="noopener">AVFoundation(二)：核心AVAsset</a><br><a href="http://1199game.com/2016/10/avfoundation-2/" target="_blank" rel="noopener">AVFoundation编程指南2-用AVPlayer播放视频</a><br><a href="http://www.jianshu.com/p/c6be05ffe418" target="_blank" rel="noopener">AV Foundation系列（五）媒体组合</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-13T05:06:57.320Z" itemprop="dateUpdated">2018-01-13 13:06:57</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: 视频开发/" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: 视频开发/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 视频开发/&title=《视频开发》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 视频开发/&title=《视频开发》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 视频开发/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《视频开发》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 视频开发/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 视频开发/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: 有限状态机在iOS中的应用/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">有限状态机在iOS中的应用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: xcode常用快捷键及其他功能/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">xcode常用快捷键及其他功能</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 视频开发/&title=《视频开发》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 视频开发/&title=《视频开发》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 视频开发/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《视频开发》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 视频开发/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 视频开发/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQXbDMAgFwN7/0u62m8gfcPtqabTKSxxbkwVBwNdXvK4f69On6+vz15+e8sDCwMB4LeNarvya3g/x2HMxMDAOYKzD6Hq7vaBZDdM3e8bAwMBYXpMkgvk7GBgYGE8x8nDZewcDAwOjd4jt8fJP18H6sbM4BgbGCxl5sezvX/9KfwMDA+NVjKu48vvkpbe8VfBxVxgYGFszqunaPHGcHFxvGqIYGBibMubNy7zQ3xsLW49oPNaDxcDA+MeMcvG9NWYxuaZQ2sPAwNia0RuAqIbUahN0fQCOuhwYGBgbMQrpV/z45M69ZuTHEIyBgbEpIwlweXJWLa7Nf6ZCnMbAwHgtIynT5w3LSaGtF4hv/jcwMDA2YjwVFpNAXE1DC51YDAyMTRnzgNjD98bFCoU2DAyM7Rjl2FxMEJMfZRSOMTAwDmD0jq9J2jcPxFGxDwMD4wDG+vDZnN2I07t8yKPwv4GBgbERIx+qyG9XLfdPmqYYGBinMfKQ1xuSmKSP0R4wMDAOYMyblL0EMW9V3mAwMDCOYVTbk9URsUlaWWhkYmBgbM2YhMLqdquH5JtvYWBgbMq4iqtanuu1FsrtTAwMjK0Z+aomi/lxN28M5MdmDAyM/RjVIFs9jhYOonHAbeaqGBgYL2dUhy0mo129Q+zNnTEwMDDG1+TJZbPxiYGBgTEIuL2QmpfkMDAwzmFMUr28NJaH0WQoDQMD4xxGNQhW08G8tFfdOgYGxgGMb/5AVYNmMRNuAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

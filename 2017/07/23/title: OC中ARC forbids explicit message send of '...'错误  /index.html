@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>OC中ARC forbids explicit message send of &#39;...&#39;错误 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Bug,OC,转载">
+    <meta name="description" content="转自CSDN hahahacff有所整理  ARC forbids explicit message send of’retainCount’ 同’release’等等                                                                                                           很显然，是ARC">
+<meta name="keywords" content="Bug,OC,转载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OC中ARC forbids explicit message send of &#39;...&#39;错误">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="转自CSDN hahahacff有所整理  ARC forbids explicit message send of’retainCount’ 同’release’等等                                                                                                           很显然，是ARC">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/15159489066776.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/922727/201605/922727-20160520121424544-662684677.png">
+<meta property="og:updated_time" content="2018-01-14T17:00:06.700Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OC中ARC forbids explicit message send of &#39;...&#39;错误">
+<meta name="twitter:description" content="转自CSDN hahahacff有所整理  ARC forbids explicit message send of’retainCount’ 同’release’等等                                                                                                           很显然，是ARC">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/15159489066776.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">OC中ARC forbids explicit message send of &#39;...&#39;错误</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">OC中ARC forbids explicit message send of &#39;...&#39;错误</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:25:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ARC-forbids-explicit-message-send-of’retainCount’"><span class="post-toc-number">1.</span> <span class="post-toc-text">ARC forbids explicit message send of’retainCount’</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARC是什么"><span class="post-toc-number"></span> <span class="post-toc-text">ARC是什么?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方法"><span class="post-toc-number"></span> <span class="post-toc-text">解决方法</span></a>
+        </nav>
+    </aside>
+    
+<article id="post-title: OC中ARC forbids explicit message send of &#39;...&#39;错误  "
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">OC中ARC forbids explicit message send of '...'错误</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:25:00" datetime="2017-07-23T15:25:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>转自<a href="http://blog.csdn.net/hahahacff/article/details/39859901" target="_blank" rel="noopener"><strong>CSDN hahahacff</strong></a><br>有所整理</p>
+</blockquote>
+<h3 id="ARC-forbids-explicit-message-send-of’retainCount’"><a href="#ARC-forbids-explicit-message-send-of’retainCount’" class="headerlink" title="ARC forbids explicit message send of’retainCount’"></a>ARC forbids explicit message send of’retainCount’</h3><ul>
+<li>同’release’等等<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/15159489066776.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+很显然，是<strong>ARC</strong>的问题。<br>错误原因：在创建工程的时候点选了<strong>“Use Automatic Reference Counting”</strong>选项,但是又调用了对象的<strong>retainCount</strong>方法</li>
+</ul>
+<h2 id="ARC是什么"><a href="#ARC是什么" class="headerlink" title="ARC是什么?"></a>ARC是什么?</h2><p>ARC是iOS 5推出的新功能，全称叫ARC(AutomaticReferenceCounting)。<br>简单地说，就是代码中自动加入了retain/release，原先需要手动添加的用来处理内存管理的引用计数的代码可以自动地由编译器完成了。该机制在iOS 5/ Mac OS X 10.7 开始导入，利用 Xcode4.2可以使用该机制。简单地理解ARC，就是通过指定的语法，让编译器(LLVM3.0)在编译代码时，自动生成实例的引用计数管理部分代码。有一点，ARC并不是GC，它只是一种代码静态分析（StaticAnalyzer）工具。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>选择要项目，双击中间的工程名称，进入build setting<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://images2015.cnblogs.com/blog/922727/201605/922727-20160520121424544-662684677.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>将中间的Objective-C Automatic Reference Counting改为no</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-14T17:00:06.700Z" itemprop="dateUpdated">2018-01-15 01:00:06</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: OC中ARC forbids explicit message send of &#39;...&#39;错误  /" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of &#39;...&#39;错误  /</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bug/">Bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转载/">转载</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&title=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&title=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: xcode常用快捷键及其他功能/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">xcode常用快捷键及其他功能</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">解决Arduino CH34x系列在macOS Sierra中找不到串口的问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&title=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&title=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OC中ARC forbids explicit message send of '...'错误》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: OC中ARC forbids explicit message send of '...'错误  /" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMUlEQVR42u3ay27jQAwEwPz/T3uvCwRWukkFsCalU+CHPDUG0iY5X1/x9frvevfI9ePfX/P97+TZ67vdfGFjY2M/hP26vHJ2grm+z7vXXN9/djdsbGzs89h5zCQx1oZNtNDg05N3YWNjY2PnsDyW8jhMghYbGxsbe8+eNYaSAJutExsbG/svsPNgmDFWDaB4g36ll4aNjY398exNSHza378y38bGxsb+YParvNoQamOpHQkP14CNjY19EPuu0uKuQULeomrLDGxsbOxT2Zsf+rOQ2wxxZ8eAbqirsLGxsT+Yff2i60dmYZYXKvce7imm3NjY2NiPYuewPCTyQWwSlvmzxf2xsbGxD2K/7TMFYdD+qt8cnUnuU39J2NjY2Aex89vNxrR5AdMWKrNIw8bGxj6JvWnit0dt8nKiDa22QMLGxsY+iZ1EVB42+Qg5f7YdABfjCmxsbOyD2G3hMWvizI7jbGKyaGlhY2NjP5bdxk97NGdWMLSP1INqbGxs7OPYsyMymyZUnaujJtfbO2BjY2MfxJ4t8d7G0+xYz6YgwcbGxj6J3Y5g7+pg5dGYb3oxtMDGxsY+mp0HWFuKtOPbzeGeH96FjY2NfRA7adm3jDZm8mND+deQfEnY2NjYJ7HzMqBtOc1eM2s/1cUMNjY29hHszU///YGbdhiwGRtjY2Njn8puj7lsBrptGyhaenDVVRc2Njb2o9j3HpfJF5Fc+4ZUcWQHGxsb+yB2W3hsFjRrG83GEsVkGBsbG/tR7E1BctegN9myFlbMt7GxsbGPYLdtnXYMPIuufLOKuMqXgo2Njf1A9qYMaGMmD7B2wJw3mLCxsbHPZke1Szw2mG3K5rBOErfY2NjY57H3zZokfpLyY7bp9YWNjY19BPtVXvmm5Att21JtmP2Q2NjY2NgPZ2/+5+e5sG9LtdHYxiQ2Njb209mzZn19JmhR9uRjg/qMEjY2NvZB7DY2Zh+cD5Xb9la9fmxsbGzsdeNmVtIkm1Uc2cHGxsb+k+w9tX3vfluxsbGx/wJ709zPF5rcJzlA2Q56V+MBbGxs7I9nz8qGpM3ULivZvrb82EQgNjY29sez/wEkAO05Uw9LEAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

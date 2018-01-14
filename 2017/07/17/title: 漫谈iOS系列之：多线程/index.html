@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>漫谈iOS系列之：多线程 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="OC">
+    <meta name="description" content="线程基本概念线程（thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。同一进程中的多条线程将共享该进程中的全部系统资源，如虚拟地址空间，文件描述符和信号处理等等。但同一进程中的多个线程有各自的调用栈（call stack），自己的寄存器环境（registe">
+<meta name="keywords" content="OC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫谈iOS系列之：多线程">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="线程基本概念线程（thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。同一进程中的多条线程将共享该进程中的全部系统资源，如虚拟地址空间，文件描述符和信号处理等等。但同一进程中的多个线程有各自的调用栈（call stack），自己的寄存器环境（registe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917f384972b9.jpg">
+<meta property="og:updated_time" content="2018-01-13T05:08:06.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="漫谈iOS系列之：多线程">
+<meta name="twitter:description" content="线程基本概念线程（thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。同一进程中的多条线程将共享该进程中的全部系统资源，如虚拟地址空间，文件描述符和信号处理等等。但同一进程中的多个线程有各自的调用栈（call stack），自己的寄存器环境（registe">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/05/14/5917f384972b9.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">漫谈iOS系列之：多线程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">漫谈iOS系列之：多线程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-17T03:17:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程基本概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程基本概念</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建线程的开销"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建线程的开销</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pThread"><span class="post-toc-number">3.</span> <span class="post-toc-text">pThread</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NSThread"><span class="post-toc-number">4.</span> <span class="post-toc-text">NSThread</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#GCD"><span class="post-toc-number">5.</span> <span class="post-toc-text">GCD</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dispatch-barrier-async-amp-dispatch-barrier-sync"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">dispatch_barrier_async&amp;dispatch_barrier_sync</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NSOperation"><span class="post-toc-number">6.</span> <span class="post-toc-text">NSOperation</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: 漫谈iOS系列之：多线程"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">漫谈iOS系列之：多线程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-17 11:17:00" datetime="2017-07-17T03:17:00.000Z"  itemprop="datePublished">2017-07-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h1 id="线程基本概念"><a href="#线程基本概念" class="headerlink" title="线程基本概念"></a>线程基本概念</h1><p>线程（thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。<br>同一进程中的多条线程将共享该进程中的全部系统资源，如虚拟地址空间，文件描述符和信号处理等等。但同一进程中的多个线程有各自的调用栈（call stack），自己的寄存器环境（register context），自己的线程本地存储（thread-local storage）。<br><strong>线程的状态</strong>：</p>
+<ul>
+<li>新生态（New Thread）</li>
+<li>可运行态（Runnable）</li>
+<li>阻塞/非运行态（Not Runnable）</li>
+<li>死亡态（Dead）</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/05/14/5917f384972b9.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>死锁</strong>：<br>是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。</p>
+<p><strong>死锁条件</strong>：</p>
+<ol>
+<li>互斥条件：所谓互斥就是进程在某一时间内独占资源。</li>
+<li>请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。</li>
+<li>不剥夺条件:进程已获得资源，在末使用完之前，不能强行剥夺。</li>
+<li>循环等待条件:若干进程之间形成一种头尾相接的循环等待资源关系。</li>
+</ol>
+<h1 id="创建线程的开销"><a href="#创建线程的开销" class="headerlink" title="创建线程的开销"></a>创建线程的开销</h1><p><a href="http://www.cnblogs.com/ktgu/p/3529144.html" target="_blank" rel="noopener">多线程的代价及上下文切换</a></p>
+<h1 id="pThread"><a href="#pThread" class="headerlink" title="pThread"></a>pThread</h1><p>POSIX线程（POSIX Threads，常被缩写为Pthreads）是POSIX的线程标准，跨平台，适用于多种操作系统（类Unix操作系统中，都使用Pthreads作为操作系统的线程，Windows操作系统也有其移植版pthreads-win32），可移植性强，是一套纯C语言的通用API，且线程的生命周期需要程序员自己管理，使用难度较大，所以在实际开发中通常不使用。<br>Pthreads API中大致共有100个函数调用，全都以”pthread_”开头，并可以分为四类：</p>
+<ul>
+<li>线程管理，例如创建线程，等待(join)线程，查询线程状态等。</li>
+<li>互斥锁（Mutex）：创建、摧毁、锁定、解锁、设置属性等操作。</li>
+<li>条件变量（Condition Variable）：创建、摧毁、等待、通知、设置与查询属性等操作。</li>
+<li>使用了互斥锁的线程间的同步管理。</li>
+</ul>
+<p><code>pThread</code>在实际开发中基本不使用，所以大概了解下就好了。</p>
+<h1 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h1><h1 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h1><h2 id="dispatch-barrier-async-amp-dispatch-barrier-sync"><a href="#dispatch-barrier-async-amp-dispatch-barrier-sync" class="headerlink" title="dispatch_barrier_async&amp;dispatch_barrier_sync"></a>dispatch_barrier_async&amp;dispatch_barrier_sync</h2><p>在队列中，<code>barrier</code>块必须单独执行，不能与其他<code>block</code>并行。这只对并发队列有意义，并发队列如果发现接下来要执行的<code>block</code>是个<code>barrier block</code>，那么就一直要等到当前所有并发的<code>block</code>都执行完毕，才会单独执行这个<code>barrier block</code>代码块，等到这个<code>barrier block</code>执行完毕，再继续正常处理其他并发<code>block</code>。</p>
+<blockquote>
+<p><code>async</code>, <code>sync</code>两者区别在于<code>async</code>将自己的任务插入队列后, 不用等待自己的任务结束, 继续把后面的任务插入队列, 然后等待自己的任务运行结束才执行后面的任务, <code>sync</code>将自己的任务插入队列后，需要等待自己的任务运行结束才能将后面的任务插入队列。</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@end</span></div><div class="line"> </div><div class="line"> </div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> ()</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"> </div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *_name;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_queue_t</span> _concurrentQueue;</div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></div><div class="line">- (<span class="keyword">instancetype</span>)init</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</div><div class="line">       _concurrentQueue = dispatch_queue_create(<span class="string">"com.person.syncQueue"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name</div><div class="line">&#123;</div><div class="line">    dispatch_barrier_async(_concurrentQueue, ^&#123;</div><div class="line">        _name = [name <span class="keyword">copy</span>];</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)name</div><div class="line">&#123;</div><div class="line">    __block <span class="built_in">NSString</span> *tempName;</div><div class="line">    <span class="built_in">dispatch_sync</span>(_concurrentQueue, ^&#123;</div><div class="line">        tempName = _name;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> tempName;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h1 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h1><p><code>NSOperation</code>默认是非并发的，当你调用<code>-[NSOperation start]</code>方法时，该方法会等任务结束才会返回；<br>并发的<code>NSOperation</code>是指,当你调用<code>-[NSOperation start]</code>后，<code>NSOperation</code>会在非当前线程(建立一个<code>NSThread</code>，或是<code>dispatch async</code>等)执行任务，并在任务结束之前就返回;</p>
+<p>需要注意的是，并发行为都需要你自己实现，若要实现并发，你需要做很多额外的工作：</p>
+<ol>
+<li>你需要创建一个<code>subclass</code>；</li>
+<li>除了重载<code>main</code>方法，实现并发你还需要至少重载；<code>start</code>,<code>isConcurrent</code>,<code>isExecuting</code>,<code>isFinished</code>四个方法；</li>
+<li>在<code>start</code>里，创建<code>Thread</code>或者调用一个异步函数；</li>
+<li>更新<code>isExecuting</code>，并且发送相应KVO消息；</li>
+<li>任务结束后，你还得更新<code>isExecuting</code>和<code>isFinished</code>，发送相应KVO消息。<br>实现一个并发的<code>NSOperation</code>比较少见，具体如何实现，可以读读文档: <a href="https://developer.apple.com/documentation/foundation/operation#//apple_ref/doc/uid/TP40004591-RH2-1173" target="_blank" rel="noopener">NSOperation Class Reference</a></li>
+</ol>
+<p>大多数情况下<code>NSOperation</code>都设计成非并发，这样实现起来会简单很多;<br>并且，一般会配合<code>NSOperationQueue</code>使用，由<code>NSOperationQueue</code>来负责执行<code>NSOperation</code>，而非直接调用<code>-[NSOperation start]</code>。</p>
+<p>若有复杂任务需要并发执行，一般也是拆成多个<code>NSOperation</code>，由<code>NSOperationQueue</code>来并发的执行多个<code>NSOperation</code>。</p>
+<blockquote>
+<p>参考:<br><a href="http://www.jianshu.com/p/0b0d9b1f1f19" target="_blank" rel="noopener">关于iOS多线程，你看我就够了</a><br> <a href="http://www.jianshu.com/p/9ed95082f256" target="_blank" rel="noopener">dispatch_barrier_sync和dispatch_barrier_async</a><br><a href="http://www.cnblogs.com/ziyi--caolu/p/4900650.html" target="_blank" rel="noopener">iOS开发：深入理解GCD 第二篇（dispatch_group、dispatch_barrier、基于线程安全的多读单写）</a><br><a href="http://ourcoders.com/thread/show/1067/" target="_blank" rel="noopener">NSOperation的并发和非并发有什么区别呀？</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-13T05:08:06.362Z" itemprop="dateUpdated">2018-01-13 13:08:06</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/17/title: 漫谈iOS系列之：多线程/" target="_blank" rel="external">http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&title=《漫谈iOS系列之：多线程》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&title=《漫谈iOS系列之：多线程》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《漫谈iOS系列之：多线程》 — CodingDoge&url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/17/title: 漫谈iOS系列之：内存管理/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">漫谈iOS系列之：内存管理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">剑指Offer —— 复杂链表的复制</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&title=《漫谈iOS系列之：多线程》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&title=《漫谈iOS系列之：多线程》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《漫谈iOS系列之：多线程》 — CodingDoge&url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/17/title: 漫谈iOS系列之：多线程/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQWrDQAwF0N7/0il0VSi2v6RRk8XzyiR2PG8ClpD09RUfr5/j9/nvT5Irr67/e9fVU+5/YXTg4eHhtZZ+dVwt+v6R99fc33W1Hfcbd7mJeHh4eGu8yRLzpVQ3K9nuBwseHh7eW3l5Yn3/0k++rW4oHh4e3mfy8tQ2ea0npYpJKo+Hh4e3zcsXWg0VeeFgvkF4eHh4/8PrNcDee77e38PDw8NrddWTY2MQIW+PPawNDw8Pb4E3KcjmI1PVEm2eoEcBAw8PD2+ZlxcdJiXg6tBV73M8PDy8bV6v/d9rZeWNtOpGF/p7eHh4eGNeflvzMcXiQh42mv8JHh4eXotXbS/dFwgmjCQ5zkMLHh4e3h6vlzTnr+l8MCvZrOrAFh4eHt4erxcS5g2qSVKebygeHh7eBm+SLlfLsr3ib76qy9Xi4eHhHeVVR6PyIm9vRKB6Xh66wsPDwxvw8sR3PiaVhIrqcx/CDB4eHt4y71QrK29WVZdbbZjh4eHh7fFOjVsdK7m2Bq0u69N4eHh4y7zqMRmfmjTPovXg4eHhLfDm6fKpBSWf9NJ3PDw8vLO86ijVpFgwHxcoN8nw8PDwlnmT13GeIk8KDeVv8fDw8N7Ey1v71V/IQ0IvLOHh4eFt8PKCbPKYUyGn2kIrl3Hx8PDwjvLOUqslicmg1cM24eHh4R3l5cWC3pW9hVaDx8PoFR4eHt4ab160zYsLSbCpksrJNB4eHl6R9yoeeRjIzycJ+kO6j4eHh7fAmw+V9l7r+dZUN6iaguPh4eH1eNVmfK/ckDSxqiWPKDDg4eHhrfGSB/dGTpMgUb2rXJLAw8PD+wBektRW5xeS0kOelOPh4eF9Ai952KQUW22eRQEMDw8Pb43Xe61Xk+lJg62XmuPh4eFt8HoNsF4JuPpy7w004OHh4a3xvgH8PPk+TUcL3AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

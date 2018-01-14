@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>并发(concurrency)和并行(parallelism) | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="“并发”指的是程序的结构，“并行”指的是程序运行时的状态  并行（parallelism）这个概念很好理解。所谓并行，就是同时执行的意思，无需过度解读。判断程序是否处于并行的状态，就看同一时刻是否有超过一个“工作单位”在运行就好了。所以，单线程永远无法达到并行状态。 要达到并行状态，最简单的就是利用多线程和多进程。 并发（concurrency）要理解“并发”这个概念，必须得清楚，并发指的是程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发(concurrency)和并行(parallelism)">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="“并发”指的是程序的结构，“并行”指的是程序运行时的状态  并行（parallelism）这个概念很好理解。所谓并行，就是同时执行的意思，无需过度解读。判断程序是否处于并行的状态，就看同一时刻是否有超过一个“工作单位”在运行就好了。所以，单线程永远无法达到并行状态。 要达到并行状态，最简单的就是利用多线程和多进程。 并发（concurrency）要理解“并发”这个概念，必须得清楚，并发指的是程序">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/15011301882675.jpg">
+<meta property="og:updated_time" content="2018-01-13T14:00:58.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发(concurrency)和并行(parallelism)">
+<meta name="twitter:description" content="“并发”指的是程序的结构，“并行”指的是程序运行时的状态  并行（parallelism）这个概念很好理解。所谓并行，就是同时执行的意思，无需过度解读。判断程序是否处于并行的状态，就看同一时刻是否有超过一个“工作单位”在运行就好了。所以，单线程永远无法达到并行状态。 要达到并行状态，最简单的就是利用多线程和多进程。 并发（concurrency）要理解“并发”这个概念，必须得清楚，并发指的是程序">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/15011301882675.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">并发(concurrency)和并行(parallelism)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">并发(concurrency)和并行(parallelism)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-27T04:29:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#并行（parallelism）"><span class="post-toc-number">1.</span> <span class="post-toc-text">并行（parallelism）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#并发（concurrency）"><span class="post-toc-number">2.</span> <span class="post-toc-text">并发（concurrency）</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: 并发(concurrency)和并行(parallelism)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">并发(concurrency)和并行(parallelism)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-27 12:29:00" datetime="2017-07-27T04:29:00.000Z"  itemprop="datePublished">2017-07-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>“并发”指的是程序的结构，“并行”指的是程序运行时的状态</p>
+</blockquote>
+<h2 id="并行（parallelism）"><a href="#并行（parallelism）" class="headerlink" title="并行（parallelism）"></a>并行（parallelism）</h2><p>这个概念很好理解。所谓并行，就是同时执行的意思，无需过度解读。判断程序是否处于并行的状态，就看同一时刻是否有超过一个“工作单位”在运行就好了。所以，单线程永远无法达到并行状态。</p>
+<p>要达到并行状态，最简单的就是利用多线程和多进程。</p>
+<h2 id="并发（concurrency）"><a href="#并发（concurrency）" class="headerlink" title="并发（concurrency）"></a>并发（concurrency）</h2><p>要理解“并发”这个概念，必须得清楚，并发指的是程序的“结构”。当我们说这个程序是并发的，实际上，这句话应当表述成“这个程序采用了支持并发的设计”。好，既然并发指的是人为设计的结构，那么怎样的程序结构才叫做支持并发的设计？</p>
+<p><strong>正确的并发设计的标准是：使多个操作可以在重叠的时间段内进行(two tasks can start, run, and complete in overlapping time periods)。</strong></p>
+<p>这句话的重点有两个。我们先看“（操作）在重叠的时间段内进行”这个概念。它是否就是我们前面说到的并行呢？是，也不是。并行，当然是在重叠的时间段内执行，但是另外一种执行模式，也属于在重叠时间段内进行。这就是<a href="https://zh.wikipedia.org/wiki/协程" target="_blank" rel="noopener">协程</a>。</p>
+<p>使用协程时，程序的执行看起来往往是这个样子：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/15011301882675.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>task1, task2 是两段不同的代码，比如两个函数，其中黑色块代表某段代码正在执行。注意，这里从始至终，在任何一个时间点上都只有一段代码在执行，但是，由于 task1 和 task2 在重叠的时间段内执行，所以这是一个支持并发的设计。与并行不同，单核单线程能支持并发。</p>
+<blockquote>
+<p><strong>Different concurrent designs enable different ways to parallelize</strong></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-13T14:00:58.116Z" itemprop="dateUpdated">2018-01-13 22:00:58</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/27/title: 并发(concurrency)和并行(parallelism)/" target="_blank" rel="external">http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&title=《并发(concurrency)和并行(parallelism)》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&title=《并发(concurrency)和并行(parallelism)》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发(concurrency)和并行(parallelism)》 — CodingDoge&url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/01/title: 剑指Offer —— 最小的k个数/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">剑指Offer —— 最小的k个数</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/25/title: iOS 保持界面流畅的技巧/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">iOS 保持界面流畅的技巧</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&title=《并发(concurrency)和并行(parallelism)》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&title=《并发(concurrency)和并行(parallelism)》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发(concurrency)和并行(parallelism)》 — CodingDoge&url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/27/title: 并发(concurrency)和并行(parallelism)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3aS24jMQwFQN//0pntAImd90jJ8aJ6FfjTUnUAkSb5eMTX13/X91dev5vc+dla3+/5uHHh4eHhLbbebvcrvmZbf/aZZC08PDy827zNrVtwcnonYSkJM3h4eHifwEvenT2gfXqNh4eH98m82UZfH/f5PfHw8PA+gZcUEZL0N3lMeTk4uc+xWgseHh5eVw14tFv827+v9Pfw8PDw1l31tlybH99JYt0Ggx9WwcPDw7vAyw/ctpzaUk+ly3h4eHi3ebNxq5yUlGvzVlmdfOPh4eFd4LWp7euFN6Xh5J6rgjIeHh7eG3mnkukbA17548bDw8M7xdtg8hR8NjSQFH+Lrh0eHh7eBV5yZLchZDYI1ZZFfpkmw8PDw7vAm6W/+1GAtsibJPFPG2B4eHh4h3jtwm17LAkPedKcD1rh4eHh3eOdKhzsD/o2DCQPAg8PD+8Gb9+yagew8s+0o1p4eHh47+G1R/PsQK+z+9FV/8fw8PDwDvHyK0+U8xGEvJEWNdvw8PDwLvNmJdQ8gU7Ku+1+fknE8fDw8C7w8i/MUu2iFhJsdFX8xcPDwzvKa0sDmyJF+9028ES/G/Dw8PAWvHzhWSNqNgpwLNjg4eHhXeDlpYFZMSJ/ZO0IQhHM8PDw8C7wZpgkeLTDAXnTq03c8fDw8M7yNkXVZHNRm39xkkdxDw8PD+8abz9oVUekUUm3KHbg4eHhXebNyrKbo38zyFXUqvHw8PAO8Tbp7+z1pAg7a8j98F08PDy8C7xNIz9paLUhJEnfZw0zPDw8vLO8dplNj34WJJLA8EsDDA8PD+8CL9nofpQqLz3UsasNgnh4eHhv5J1qXw0LB+3e8PDw8D6Atzm+8wR6NtaAh4eH905eUoyYFQs292lLzE8nI/Dw8PCO8ma/6Gct/JxxYNN4eHh453n/ABeKNcpKHxCeAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

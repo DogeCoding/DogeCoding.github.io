@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CocoaPods 安装及一般使用 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Tool">
+    <meta name="description" content="WHAT IS COCOAPODSCocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.CocoaPods can help you scale your projects elegantly. INSTALLCocoaPods是基于ruby建立的，要确保你的电脑里装有Ruby，不过Mac都是自带Rub">
+<meta name="keywords" content="Tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaPods 安装及一般使用">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="WHAT IS COCOAPODSCocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.CocoaPods can help you scale your projects elegantly. INSTALLCocoaPods是基于ruby建立的，要确保你的电脑里装有Ruby，不过Mac都是自带Rub">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/FF76DDA8-EC18-438C-B921-8603D4688C1D.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/37122577-4CDC-48C9-9B25-4B943D983810.png?imageView2/0/q/100">
+<meta property="og:updated_time" content="2018-01-13T05:06:34.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CocoaPods 安装及一般使用">
+<meta name="twitter:description" content="WHAT IS COCOAPODSCocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.CocoaPods can help you scale your projects elegantly. INSTALLCocoaPods是基于ruby建立的，要确保你的电脑里装有Ruby，不过Mac都是自带Rub">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/FF76DDA8-EC18-438C-B921-8603D4688C1D.png?imageView2/0/q/100">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CocoaPods 安装及一般使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CocoaPods 安装及一般使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:47:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WHAT-IS-COCOAPODS"><span class="post-toc-number">1.</span> <span class="post-toc-text">WHAT IS COCOAPODS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#INSTALL"><span class="post-toc-number">2.</span> <span class="post-toc-text">INSTALL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Using-CocoaPods"><span class="post-toc-number">3.</span> <span class="post-toc-text">Using CocoaPods</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: CocoaPods 安装及一般使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CocoaPods 安装及一般使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:47:00" datetime="2017-07-23T15:47:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="WHAT-IS-COCOAPODS"><a href="#WHAT-IS-COCOAPODS" class="headerlink" title="WHAT IS COCOAPODS"></a>WHAT IS <a href="https://cocoapods.org" target="_blank" rel="noopener">COCOAPODS</a></h2><p>CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.CocoaPods can help you scale your projects elegantly.</p>
+<h2 id="INSTALL"><a href="#INSTALL" class="headerlink" title="INSTALL"></a>INSTALL</h2><p>CocoaPods是基于ruby建立的，要确保你的电脑里装有Ruby，不过Mac都是自带Ruby的，你可以用<a href="https://rvm.io" target="_blank" rel="noopener">rvm</a>来管理你的ruby.</p>
+<blockquote>
+<p> <a href="https://ruby-china.org/wiki/rvm-guide" target="_blank" rel="noopener">RVM 实用指南 · Ruby China</a><br>然后我们使用Rubygem来安装cocoapods.<br>由于GFW的原因我们不能访问cocoapods.org，使用淘宝的Ruby镜像来代替：</p>
+<ol>
+<li>删除自带的Ruby镜像<br><code>$ gem sources --remove https://rubygems.org/</code></li>
+<li>添加淘宝的镜像<br><code>$ gem sources -a https://gems.ruby-china.org/</code><br>（如果这个镜像不能用，就用<a href="https://gems.ruby-china.org/" target="_blank" rel="noopener">https://gems.ruby-china.org/</a><br>）</li>
+<li>可以用<code>$ gem sources -l</code>来检验。成功即显示以下结果：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/FF76DDA8-EC18-438C-B921-8603D4688C1D.png?imageView2/0/q/100" alt="FF76DDA8-EC18-438C-B921-8603D4688C1D" title="">
+                </div>
+                <div class="image-caption">FF76DDA8-EC18-438C-B921-8603D4688C1D</div>
+            </figure>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>安装CocoaPods<br><code>$ sudo gem install cocoapods</code></li>
+<li>配置CocoaPods<br><code>$ pod setup</code></li>
+</ol>
+<p>如果安装失败的话，根据报错去解决问题，比如gem没更新，ruby版本等。<br>常见问题：<br><figure class="highlight plain"><figcaption><span>While executing gem ... (Errno::EPERM)</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Operation not permitted - /usr/bin/xcodeproj</div></pre></td></tr></table></figure></p>
+<p><a href="https://segmentfault.com/q/1010000002926243" target="_blank" rel="noopener">安装Cocoapods， 更新gem出现的问题。 - SegmentFault</a><br><a href="http://stackoverflow.com/questions/30812777/cannot-install-cocoa-pods-after-uninstalling-results-in-error/30851030#30851030" target="_blank" rel="noopener">ios - Cannot install cocoa pods after uninstalling, results in error - Stack Overflow</a></p>
+<h2 id="Using-CocoaPods"><a href="#Using-CocoaPods" class="headerlink" title="Using CocoaPods"></a>Using CocoaPods</h2><ol>
+<li>使用之前你要确保你所想用的库存在CocoaPods中：(拿AFNetworking举例)<br><code>$ pod search AFNetworking</code><br>第一次搜索会需要建立索引，比较慢一些。</li>
+<li><p>搜索完成后会列举出结果和版本：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/37122577-4CDC-48C9-9B25-4B943D983810.png?imageView2/0/q/100" alt="37122577-4CDC-48C9-9B25-4B943D983810" title="">
+                </div>
+                <div class="image-caption">37122577-4CDC-48C9-9B25-4B943D983810</div>
+            </figure>
+</li>
+<li><p>然后通过创建<a href="https://guides.cocoapods.org/using/the-podfile.html" target="_blank" rel="noopener">Podfile</a>文件来添加依赖关系</p>
+</li>
+<li>先<code>cd</code>进你项目所在的目录(简介里面可以直接复制路径) </li>
+<li>利用vim创建Podfile文件<br><code>$ vim Podfile</code></li>
+<li>然后输入：<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">platform</span> :ios, <span class="string">'10.0'</span></div><div class="line"></div><div class="line">target <span class="string">'TargetName'</span> <span class="keyword">do</span></div><div class="line">pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 3.0'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>文字的意思是，当前AFNetworking支持的iOS最高版本是iOS 10.0，’TargetName’为你项目的名称，要下载的AFNetworking版本是3.0<br>保存退出。</p>
+<ol>
+<li>运行<code>$ pod install</code><br>完成后会出现<br>提示使用’XXX.xcworkspace’文件来代替之前的’XXX.xcodeproj’文件打开项目。<br>打开项目后会发现<br>里面有了我们想要加进来的库，可以<code>#import</code>进来了。</li>
+</ol>
+</blockquote>
+<ol>
+<li>增加新的库<br>如果使用过程中我还想添加其他的库怎么办，只要在Podfile里面接着添加，然后终端再执行<code>pod install</code>就可以了。</li>
+<li>更新CocoaPods中的库<br>第三方库们都有人在维护升级，我们需要隔断时间就要更新下我们工程中第三方库的版本。只需要终端输入命令<code>pod update</code>就可以了。</li>
+<li>删除CocoaPods中的某些库<br>当我们需要去掉某个第三方库时，只需要在Podfile删除该引入该库的语句，然后执行<code>pod update</code>或者<code>pod install</code>就可以了。</li>
+<li>升级CocoaPods<br><code>sudo gem install cocoapods</code></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-13T05:06:34.464Z" itemprop="dateUpdated">2018-01-13 13:06:34</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: CocoaPods 安装及一般使用/" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&title=《CocoaPods 安装及一般使用》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&title=《CocoaPods 安装及一般使用》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CocoaPods 安装及一般使用》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: Objective-C声明在头文件和实现文件中的区别  /" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Objective-C声明在头文件和实现文件中的区别</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/23/title: 有限状态机在iOS中的应用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">有限状态机在iOS中的应用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&title=《CocoaPods 安装及一般使用》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&title=《CocoaPods 安装及一般使用》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CocoaPods 安装及一般使用》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: CocoaPods 安装及一般使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3a0W7CQAwEQP7/p6nUtwolrO1zaaXJE6IkZFLpzqz9eMTH8/u4euf5cuTnvl7h6v3Xvx478PDw8Fq3fnVcYXq3dX+L92fdP9DLR4CHh4e3xrvfDJLX1UeWXK33vXh4eHh/h5dvIUkZnT9QPDw8vP/LS6KEeVE+35Dw8PDwfofXW+6TsCD5ZB46LGYteHh4eDGv2gD7C68X+3t4eHh4g656HsJWl+xJ0FC4Tzw8PLwFXlIuVxv8UUAwbpgVNgw8PDy8o7z5It5buO+vlgfBb66Jh4eHt8CbnJYs3Emp3YuSC0EzHh4e3gKvOiyVL/35ub1H1ox08fDw8Aa8PE5NCtx8C6mOCPS+BQ8PD2+DNyl2z0bAvbAjCovx8PDwjvIKzyCg9kam5vFus6TGw8PDG/9mnxy98anqZlAdR8DDw8Pb41WX3fwz+UJfjXGbeyAeHh7emFf92T+56WrBnVDf3DMeHh7eAu9U5z25Qh7dVocS1gcL8PDw8IptsGqR3WunzUNhPDw8vE/xqgMBvUA2H7o6ltPi4eHhHeL1Gl1JSLEX+CabBx4eHt7v8E4FE9XmWW/wK9rM8PDw8BZ4veo7b/nnJfskMi4j8fDw8Aa8fJE9NYyVN8MOtMrw8PDwFni95bs69lTdYKpttvIAAR4eHt4hXhXWG4pKNoDet0QBBB4eHt4hXm+hr0ark0c2iXrx8PDw9nh5eFrFVEnVPe3NWXh4eHhHefOluXeF6qBVNez4kVLj4eHhHeXlR365XugwH+3K2294eHh4c95kKc8jjPl/oLkx4OHh4a3xeqHDpAjOt6J863qTteDh4eF9lJePQ03q+nlzDg8PD++zvAON/HF5XY1C8PDw8PZ4ecu/eu6pRb9ZfOPh4eEt8OYNsPkG0yvZk7vCw8PDO8r7AsftQQW3lQw5AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>STL常见用法 — vector | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="STL">
+    <meta name="description" content="代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。    简介vector是线性容器,它的元素严格的按照线性序列排序,和动态数组很相似,和数组一样,它的元素存储在一块连续的存储空间中,这也意味着我们不仅可以使用迭代器(iterator)访问元素,还可以使用指针的偏移方式访问,和常规数组不一样的是,vector能够自动存储元素,可以自动增长或缩小存储空间。 用法头文件1#in">
+<meta name="keywords" content="STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL常见用法 — vector">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。    简介vector是线性容器,它的元素严格的按照线性序列排序,和动态数组很相似,和数组一样,它的元素存储在一块连续的存储空间中,这也意味着我们不仅可以使用迭代器(iterator)访问元素,还可以使用指针的偏移方式访问,和常规数组不一样的是,vector能够自动存储元素,可以自动增长或缩小存储空间。 用法头文件1#in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-14T17:04:41.751Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STL常见用法 — vector">
+<meta name="twitter:description" content="代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。    简介vector是线性容器,它的元素严格的按照线性序列排序,和动态数组很相似,和数组一样,它的元素存储在一块连续的存储空间中,这也意味着我们不仅可以使用迭代器(iterator)访问元素,还可以使用指针的偏移方式访问,和常规数组不一样的是,vector能够自动存储元素,可以自动增长或缩小存储空间。 用法头文件1#in">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">STL常见用法 — vector</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">STL常见用法 — vector</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-21T05:06:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CPP/">CPP</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用法"><span class="post-toc-number">2.</span> <span class="post-toc-text">用法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#头文件"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">头文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构造函数"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">构造函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#成员函数"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">成员函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用法演示"><span class="post-toc-number">3.</span> <span class="post-toc-text">用法演示</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: STL常见用法 — vector"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">STL常见用法 — vector</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-21 13:06:00" datetime="2017-07-21T05:06:00.000Z"  itemprop="datePublished">2017-07-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CPP/">CPP</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>代码敲得少，STL总是用的不熟，便自己整理一些用法，有眼缘的顺手用着吧。 </p>
+</blockquote>
+<hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>vector是线性容器,它的元素严格的按照线性序列排序,和动态数组很相似,和数组一样,它的元素存储在一块连续的存储空间中,这也意味着我们不仅可以使用迭代器(iterator)访问元素,还可以使用指针的偏移方式访问,和常规数组不一样的是,vector能够自动存储元素,可以自动增长或缩小存储空间。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div></pre></td></tr></table></figure>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">Allocator</span> = <span class="title">std</span>:</span>:allocator&lt;T&gt; &gt; <span class="class"><span class="keyword">class</span> <span class="title">vector</span>;</span></div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">namespace</span> pmr &#123;</div><div class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line">    <span class="title">using</span> <span class="title">vector</span> = <span class="title">std</span>::<span class="built_in">vector</span>&lt;T, <span class="built_in">std</span>::pmr::polymorphic_allocator&lt;T&gt;&gt;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>std::vector is a sequence container that encapsulates dynamic size arrays.</li>
+<li>std::pmr::vector is an alias template that uses a polymorphic allocator</li>
+</ol>
+</blockquote>
+<h3 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h3><table>
+<thead>
+<tr>
+<th>成员函数</th>
+<th>实现操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c.assign(beg,end)</td>
+<td>将[beg; end)区间中的数据赋值给c</td>
+</tr>
+<tr>
+<td>c.assign(n,elem)</td>
+<td>将n个elem的拷贝赋值给c</td>
+</tr>
+<tr>
+<td>c.at(idx)</td>
+<td>传回索引idx所指的数据，如果idx越界，抛出out_of_range</td>
+</tr>
+<tr>
+<td>c.back()</td>
+<td>传回最后一个数据，不检查这个数据是否存在</td>
+</tr>
+<tr>
+<td>c.begin()</td>
+<td>传回迭代器重的可一个数据</td>
+</tr>
+<tr>
+<td>c.capacity()</td>
+<td>返回容器中数据个数</td>
+</tr>
+<tr>
+<td>c.clear()</td>
+<td>移除容器中所有数据</td>
+</tr>
+<tr>
+<td>c.empty()</td>
+<td>判断容器是否为空</td>
+</tr>
+<tr>
+<td>c.end()</td>
+<td>指向迭代器中的最后一个数据地址</td>
+</tr>
+<tr>
+<td>c.erase(pos)</td>
+<td>删除pos位置的数据，传回下一个数据的位置</td>
+</tr>
+<tr>
+<td>c.erase(beg,end)</td>
+<td>删除[beg,end)区间的数据，传回下一个数据的位置</td>
+</tr>
+<tr>
+<td>c.front()</td>
+<td>传回第一个数据</td>
+</tr>
+<tr>
+<td>get_allocator</td>
+<td>使用构造函数返回一个拷贝</td>
+</tr>
+<tr>
+<td>c.insert(pos,elem)</td>
+<td>在pos位置插入一个elem拷贝，传回新数据位置</td>
+</tr>
+<tr>
+<td>c.insert(pos,n,elem)</td>
+<td>在pos位置插入n个elem数据。无返回值</td>
+</tr>
+<tr>
+<td>c.insert(pos,beg,end)</td>
+<td>在pos位置插入在[beg,end)区间的数据。无返回值</td>
+</tr>
+<tr>
+<td>c.max_size()</td>
+<td>返回容器中最大数据的数量</td>
+</tr>
+<tr>
+<td>c.pop_back()</td>
+<td>删除最后一个数据</td>
+</tr>
+<tr>
+<td>c.push_back(elem)</td>
+<td>在尾部加入一个数据</td>
+</tr>
+<tr>
+<td>c.rbegin()</td>
+<td>传回一个逆向队列的第一个数据</td>
+</tr>
+<tr>
+<td>c.rend()</td>
+<td>传回一个逆向队列的最后一个数据的下一个位置</td>
+</tr>
+<tr>
+<td>c.resize(num)</td>
+<td>重新指定队列的长度</td>
+</tr>
+<tr>
+<td>c.reserve()</td>
+<td>保留适当的容量</td>
+</tr>
+<tr>
+<td>c.size()</td>
+<td>返回容器中实际数据的个数</td>
+</tr>
+<tr>
+<td>c1.swap(c2)</td>
+<td>将c1和c2元素互换</td>
+</tr>
+<tr>
+<td>swap(c1,c2)</td>
+<td>同上操作</td>
+</tr>
+<tr>
+<td>vector<elem> c</elem></td>
+<td>创建一个空的vector</td>
+</tr>
+<tr>
+<td>vector <elem> c1(c2)</elem></td>
+<td>复制一个vector</td>
+</tr>
+<tr>
+<td>vector <elem> c(n)</elem></td>
+<td>创建一个vector，含有n个数据，数据均已缺省构造产生</td>
+</tr>
+<tr>
+<td>vector <elem> c(n, elem)</elem></td>
+<td>创建一个含有n个elem拷贝的vector。</td>
+</tr>
+<tr>
+<td>vector <elem> c(beg,end)</elem></td>
+<td>创建一个以[beg;end)区间的vector</td>
+</tr>
+<tr>
+<td>c.~ vector <elem>()</elem></td>
+<td>销毁所有数据，释放内存</td>
+</tr>
+</tbody>
+</table>
+<h2 id="用法演示"><a href="#用法演示" class="headerlink" title="用法演示"></a>用法演示</h2><ul>
+<li>使用reverse将元素翻转:<br>需要头文件<code>#include&lt;algorithm&gt;</code></li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reverse(<span class="name">vec</span>.begin(),vec.end())<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>将元素翻转(在vector中，如果一个函数中需要两个迭代器，一般后一个都不包含)</p>
+<ul>
+<li>使用sort排序:<br>需要头文件#include<algorithm>，<br>sort(vec.begin(),vec.end());(默认是按升序排列,即从小到大).<br>可以通过重写排序比较函数按照降序比较，如下:</algorithm></li>
+</ul>
+<p>定义排序比较函数:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Comp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;a,<span class="keyword">const</span> <span class="keyword">int</span> &amp;b)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> a&gt;b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用时:<code>sort(vec.begin(),vec.end(),Comp)</code>，这样就降序排序。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-14T17:04:41.751Z" itemprop="dateUpdated">2018-01-15 01:04:41</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/21/title: STL常见用法 — vector/" target="_blank" rel="external">http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STL/">STL</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&title=《STL常见用法 — vector》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&title=《STL常见用法 — vector》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《STL常见用法 — vector》 — CodingDoge&url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/21/title: STL常见用法 — map/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">STL常见用法 — map</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/17/title: 常用宏定义/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">常用宏定义</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&title=《STL常见用法 — vector》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&title=《STL常见用法 — vector》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《STL常见用法 — vector》 — CodingDoge&url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/21/title: STL常见用法 — vector/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3aQW7jMBAEQP//08l1gU203TOk4QVKJ0NWZBYP5KQ5r1d8ff11/Xn/+XPyhvx63bjw8PDw1kN/HsTzndnnfIT5mPHw8PBu8357afLM8w/kS3zybT5mPDw8vE/jJXdm20++MeDh4eH9X7znJ3N8G1vg4eHhfQ6vXbLb4ngW4yaTeCxrwcPDw7twivQ5n6+c7+Hh4eGtT9XbpXwWYSSL/nC0eHh4eBd4+YLbgmd/uwlEfn0bHh4e3gXebGmeRbqz0rmNG/Dw8PDeycuX+LalIGHvnxzubHh4eHgjXhs05NtAHr+2R1912Y2Hh4d3mbc5aWoL5VmRPTzHw8PDw1vw2nAhGcTs0CufrKK8xsPDw7vAa4vaWSC7b6iaHdHh4eHh3eDl//xvtoG8paB9Pmq3wsPDwzvKywedtAicetsmXP5HTxkeHh7eIV4+xOfh5t8mxfRmyvDw8PDu8fLCdFYQzxq59uFIVIPj4eHhLXht8Zp/2wa7pyYdDw8P7528Uy0Cx0LYsunqhwMwPDw8vKO8hJQPIr/a0PZYIwIeHh7emjc7vN83RdWxwmxS8PDw8C7w2mI6X6BnoW3+67MpxsPDwzvFG4akiyU7n462yMbDw8N7Dy8PI/ah6mYi2tAEDw8P7x4vH26RBwfI/E7bQDA8PcPDw8Nb8PL4YFYK74v7PCjBw8PDu8fL/6U/1UbQFtyzqcHDw8M7y/sqryQOaEvq/JCsDXzx8PDwbvBOLeJtg+kmnmjjEjw8PLwbvGQzyNtJW0xLqtu58PDw8K7x8oOudiJOxQ3tNoaHh4f3ObxZBNBuPwXg7MaAh4eH90Ze2wSQl+n5eVYRvODh4eGtecmSncQHeTmejKHdJFZZCx4eHt5kha9f0R7ht7HsmyIMPDw8vPT6Bg8ozxTCUoe+AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

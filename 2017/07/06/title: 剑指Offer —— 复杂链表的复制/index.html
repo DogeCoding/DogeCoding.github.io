@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>剑指Offer —— 复杂链表的复制 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="剑指Offer">
+    <meta name="description" content="题目来源牛客网：复杂链表的复制  题目描述输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 数据结构123456789101112131415/*struct RandomListNode &amp;#123;    int label;">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指Offer —— 复杂链表的复制">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="题目来源牛客网：复杂链表的复制  题目描述输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 数据结构123456789101112131415/*struct RandomListNode &amp;#123;    int label;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-14T17:25:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指Offer —— 复杂链表的复制">
+<meta name="twitter:description" content="题目来源牛客网：复杂链表的复制  题目描述输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 数据结构123456789101112131415/*struct RandomListNode &amp;#123;    int label;">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">剑指Offer —— 复杂链表的复制</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">剑指Offer —— 复杂链表的复制</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-06T02:44:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">题目描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解题思路"><span class="post-toc-number">3.</span> <span class="post-toc-text">解题思路</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、递归思想：把大问题转化若干子问题"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">一、递归思想：把大问题转化若干子问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">二、</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、哈希表法"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">三、哈希表法</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: 剑指Offer —— 复杂链表的复制"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">剑指Offer —— 复杂链表的复制</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-06 10:44:00" datetime="2017-07-06T02:44:00.000Z"  itemprop="datePublished">2017-07-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>题目来源牛客网：<strong><a href="https://www.nowcoder.com/practice/f836b2c43afc4b35ad6adc41ec941dba?tpId=13&amp;tqId=11178&amp;tPage=2&amp;rp=2&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">复杂链表的复制</a></strong></p>
+</blockquote>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">struct RandomListNode &#123;</div><div class="line">    int label;</div><div class="line">    struct RandomListNode *next, *random;</div><div class="line">    RandomListNode(int x) :</div><div class="line">            label(x), next(NULL), random(NULL) &#123;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">*/</div><div class="line"><span class="selector-tag">class</span> <span class="selector-tag">Solution</span> &#123;</div><div class="line"><span class="attribute">public</span>:</div><div class="line">    RandomListNode* <span class="built_in">Clone</span>(RandomListNode* pHead) &#123;</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="一、递归思想：把大问题转化若干子问题"><a href="#一、递归思想：把大问题转化若干子问题" class="headerlink" title="一、递归思想：把大问题转化若干子问题"></a>一、递归思想：把大问题转化若干子问题</h3><p>此题转化为一个头结点和除去头结点剩余部分，剩余部分操作和原问题一致</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">RandomListNode* <span class="keyword">Clone</span>(RandomListNode* pHead)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(pHead==<span class="keyword">NULL</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">NULL</span>;</div><div class="line">         </div><div class="line">        <span class="comment">//开辟一个新节点</span></div><div class="line">        RandomListNode* pClonedHead=<span class="keyword">new</span> RandomListNode(pHead-&gt;label);</div><div class="line">        pClonedHead-&gt;next = pHead-&gt;next;</div><div class="line">        pClonedHead-&gt;random = pHead-&gt;random;</div><div class="line">         </div><div class="line">        <span class="comment">//递归其他节点</span></div><div class="line">        pClonedHead-&gt;next=<span class="keyword">Clone</span>(pHead-&gt;next);</div><div class="line">         </div><div class="line">        <span class="keyword">return</span> pClonedHead;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h3><ul>
+<li>复制每个节点，如：复制节点A得到A1，将A1插入节点A后面</li>
+<li>遍历链表，A1-&gt;random = A-&gt;random-&gt;next;</li>
+<li>将链表拆分成原链表和复制后的链表</li>
+</ul>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">RandomListNode* Clone(RandomListNode* pHead)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(!pHead) return NULL;</div><div class="line">    RandomListNode *currNode = pHead;</div><div class="line">    <span class="keyword">while</span>(currNode)&#123;</div><div class="line">        R<span class="function"><span class="title">andomListNode</span> *node = new RandomListNode(currNode-&gt;</span>label);</div><div class="line">        <span class="function"><span class="title">node</span>-&gt;</span><span class="function"><span class="title">next</span> = currNode-&gt;</span>next;</div><div class="line">        <span class="function"><span class="title">currNode</span>-&gt;</span>next = node;</div><div class="line">        <span class="function"><span class="title">currNode</span> = node-&gt;</span>next;</div><div class="line">    &#125;</div><div class="line">    currNode = pHead;</div><div class="line">    <span class="keyword">while</span>(currNode)&#123;</div><div class="line">        R<span class="function"><span class="title">andomListNode</span> *node = currNode-&gt;</span>next;</div><div class="line">        <span class="function"><span class="title">if</span>(currNode-&gt;</span>random)&#123;                </div><div class="line">            <span class="function"><span class="title">node</span>-&gt;</span><span class="function"><span class="title">random</span> = currNode-&gt;</span><span class="function"><span class="title">random</span>-&gt;</span>next;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="title">currNode</span> = node-&gt;</span>next;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//拆分</span></div><div class="line">    R<span class="function"><span class="title">andomListNode</span> *pCloneHead = pHead-&gt;</span>next;</div><div class="line">    RandomListNode *tmp;</div><div class="line">    currNode = pHead;</div><div class="line">    <span class="function"><span class="title">while</span>(currNode-&gt;</span>next)&#123;</div><div class="line">        <span class="function"><span class="title">tmp</span> = currNode-&gt;</span>next;</div><div class="line">        <span class="function"><span class="title">currNode</span>-&gt;</span><span class="function"><span class="title">next</span> =tmp-&gt;</span>next;</div><div class="line">         currNode = tmp;</div><div class="line">    &#125;</div><div class="line">    return pCloneHead;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h3 id="三、哈希表法"><a href="#三、哈希表法" class="headerlink" title="三、哈希表法"></a>三、哈希表法</h3><p>时间空间复杂度都是O(n)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">RandomListNode* <span class="keyword">Clone</span>(RandomListNode* pHead)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(pHead==<span class="keyword">NULL</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">NULL</span>;</div><div class="line">         </div><div class="line">    <span class="comment">//定义一个哈希表</span></div><div class="line">    unordered_multimap&lt;RandomListNode*,RandomListNode*&gt; table;</div><div class="line">         </div><div class="line">    <span class="comment">// 开辟一个头结点</span></div><div class="line">    RandomListNode* pClonedHead=<span class="keyword">new</span> RandomListNode(pHead-&gt;label);</div><div class="line">    pClonedHead-&gt;next=<span class="keyword">NULL</span>;</div><div class="line">    pClonedHead-&gt;random=<span class="keyword">NULL</span>;</div><div class="line">         </div><div class="line">    <span class="comment">// 将头结点放入map中</span></div><div class="line">    table.insert(make_pair(pHead,pClonedHead));</div><div class="line">         </div><div class="line">    <span class="comment">//设置操作指针</span></div><div class="line">    RandomListNode* pNode=pHead-&gt;next;</div><div class="line">    RandomListNode* pClonedNode=pClonedHead;</div><div class="line">         </div><div class="line">    <span class="comment">// 第一遍先将简单链表复制一下</span></div><div class="line">    <span class="keyword">while</span>(pNode!=<span class="keyword">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 不断开辟pNode的拷贝结点</span></div><div class="line">        RandomListNode* pClonedTail=<span class="keyword">new</span> RandomListNode(pNode-&gt;label);</div><div class="line">        pClonedTail-&gt;next=<span class="keyword">NULL</span>;</div><div class="line">        pClonedTail-&gt;random=<span class="keyword">NULL</span>;</div><div class="line">             </div><div class="line">        <span class="comment">//连接新节点，更新当前节点</span></div><div class="line">        pClonedNode-&gt;next=pClonedTail;</div><div class="line">        pClonedNode=pClonedTail;</div><div class="line">             </div><div class="line">        <span class="comment">//将对应关系  插入到哈希表中</span></div><div class="line">        table.insert(make_pair(pNode,pClonedTail));</div><div class="line">             </div><div class="line">        <span class="comment">//向后移动操作节点</span></div><div class="line">        pNode=pNode-&gt;next;</div><div class="line">    &#125;</div><div class="line">         </div><div class="line">    <span class="comment">//需从头开始设置random节点，设置操作指针</span></div><div class="line">    pNode=pHead;</div><div class="line">    pClonedNode=pClonedHead;</div><div class="line">         </div><div class="line">    <span class="comment">// 根据map中保存的数据，找到对应的节点</span></div><div class="line">    <span class="keyword">while</span>(pNode!=<span class="keyword">NULL</span>)</div><div class="line">    &#123;</div><div class="line">             </div><div class="line">        <span class="keyword">if</span>(pNode-&gt;random!=<span class="keyword">NULL</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//找到对应节点，更新复制链表</span></div><div class="line">            pClonedNode-&gt;random=table.find(pNode-&gt;random)-&gt;second;</div><div class="line">        &#125;</div><div class="line">             </div><div class="line">        <span class="comment">//向后移动操作节点</span></div><div class="line">        pNode=pNode-&gt;next;</div><div class="line">        pClonedNode=pClonedNode-&gt;next;</div><div class="line">    &#125;</div><div class="line">         </div><div class="line">    <span class="keyword">return</span> pClonedHead;</div><div class="line">         </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-14T17:25:14.000Z" itemprop="dateUpdated">2018-01-15 01:25:14</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" target="_blank" rel="external">http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/剑指Offer/">剑指Offer</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&title=《剑指Offer —— 复杂链表的复制》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&title=《剑指Offer —— 复杂链表的复制》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《剑指Offer —— 复杂链表的复制》 — CodingDoge&url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/17/title: 漫谈iOS系列之：多线程/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">漫谈iOS系列之：多线程</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/05/13/title: 动态规划（Dynamic Programming）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">动态规划（Dynamic Programming）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&title=《剑指Offer —— 复杂链表的复制》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&title=《剑指Offer —— 复杂链表的复制》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《剑指Offer —— 复杂链表的复制》 — CodingDoge&url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/06/title: 剑指Offer —— 复杂链表的复制/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3a0WrjUAwE0P7/T+9Cn7KUJDOSr5uF46eSUNvHAUuM9PUVH3++j8e/f37y89vHz9szv77KxQceHh7e6NbbUz/75BksOVvyyPJ7xsPDwzvNa4tBAsv/Ky8b+T3j4eHhfQJvViTytjt/EHh4eHj/C2/zip8FEHlTjoeHh3c/LwkjZnFDWzbaZv2yrAUPDw8v5s1e5b/79/H5Hh4eHt5oqp6UgSSEbdcO8gHbm7vFw8PDO8DLY9l8oWq/iJC37FHZwMPDw7uUNztpDt6EGpsS9U/dw8PDw7uUl7/u28igDQ7aiLYYxeHh4eEd4OWFYRMxzMZg+TIBHh4e3p282cBp9urP2+s8vCiyFjw8PLw17/XFcsbs1pOrr5Yb8PDw8A7w8mi1HXHlIe9s6FUUMzw8PLzDvDZIbcOCdrQ2W7rCw8PDO83Lx0hJczxb0srZbeiMh4eHd4LXrlW1DXfybVuKitAZDw8P71JeHrzmhaRtdmerA8PfDQ8PD+8ALx9uzVrnzWCsBuPh4eHdwmv78Vk5OR3vRhM2PDw8vDVvVhLa2DcJf9si8fSceHh4eAd4OaaFJS/6PMxt17Dw8PDwzvFehwL5zbXHZmWh+Bnw8PDwDvA2a1LtkCx/oLN1hNXl8fDw8GLeVetWSZubt86zhYZo6QoPDw/vAK89RdtGt5jZitib1QE8PDy8Ba+NAGbh72axoG3u34S5eHh4eGte27DmcUBbKmajtTeLWXh4eHg38vK2uL31WdOcxBxFYcDDw8Nb8NrBVd7y5g8lOU+7IlAj8fDw8Ere5hWfnyFpoDdrB8Pqh4eHh7fgtXFq/mrelIEZGw8PD+9zeJuNps266mZIhoeHh/cJvBzWsvMmuwhH8PDw8I7x9jFr3uzmsUV+J3h4eHh38q4dgM3a6+Tb4VoAHh4e3pW8v72wsYYkycIwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

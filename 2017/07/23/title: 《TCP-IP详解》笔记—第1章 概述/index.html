@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?31bd755dfddd5e5e49c9007df8c7eb87"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>《TCP/IP详解》笔记—第1章 概述 | CodingDoge | 关于开发、设计，关于生活。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Reading Notes">
+    <meta name="description" content="《TCP/IP详解》笔记—第1章 概述 一个互连网就是一组通过相同协议族互连在一起的网络。    分层TCP/IP通常被认为是一个四层协议系统:                                                                                             WX20170320-171317@2x              网">
+<meta name="keywords" content="Reading Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《TCP&#x2F;IP详解》笔记—第1章 概述">
+<meta property="og:url" content="http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/index.html">
+<meta property="og:site_name" content="CodingDoge">
+<meta property="og:description" content="《TCP/IP详解》笔记—第1章 概述 一个互连网就是一组通过相同协议族互连在一起的网络。    分层TCP/IP通常被认为是一个四层协议系统:                                                                                             WX20170320-171317@2x              网">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/WX20170320-171317@2x.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/47F26D90-176D-4C0A-A315-6A9E199E79F6.png?imageView2/0/q/100">
+<meta property="og:image" content="http://oo8snaf4x.bkt.clouddn.com/70807FBE-712D-4A5C-97F2-BBCA12C1F11D.png?imageView2/0/q/100">
+<meta property="og:updated_time" content="2018-01-12T14:22:22.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《TCP&#x2F;IP详解》笔记—第1章 概述">
+<meta name="twitter:description" content="《TCP/IP详解》笔记—第1章 概述 一个互连网就是一组通过相同协议族互连在一起的网络。    分层TCP/IP通常被认为是一个四层协议系统:                                                                                             WX20170320-171317@2x              网">
+<meta name="twitter:image" content="http://oo8snaf4x.bkt.clouddn.com/WX20170320-171317@2x.png?imageView2/0/q/100">
+    
+        <link rel="alternate" type="application/atom+xml" title="CodingDoge" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CodingDoge</h5>
+          <a href="mailto:dogecoding@outlook.com" title="dogecoding@outlook.com" class="mail">dogecoding@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/DogeCoding" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1766673540" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《TCP/IP详解》笔记—第1章 概述</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">《TCP/IP详解》笔记—第1章 概述</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-23T15:04:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Network/">Network</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#《TCP-IP详解》笔记—第1章-概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">《TCP/IP详解》笔记—第1章 概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分层"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">分层</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#互联网的地址"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">互联网的地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#封装"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">封装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分用"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">分用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户-服务器模型"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">客户-服务器模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#习题"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">习题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部分习题答案"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">部分习题答案</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-title: 《TCP-IP详解》笔记—第1章 概述"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">《TCP/IP详解》笔记—第1章 概述</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-23 23:04:00" datetime="2017-07-23T15:04:00.000Z"  itemprop="datePublished">2017-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Network/">Network</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="《TCP-IP详解》笔记—第1章-概述"><a href="#《TCP-IP详解》笔记—第1章-概述" class="headerlink" title="《TCP/IP详解》笔记—第1章 概述"></a><a href="http://docs.52im.net/extend/docs/book/tcpip/vol1/1/" target="_blank" rel="noopener">《TCP/IP详解》笔记—第1章 概述</a></h1><blockquote>
+<p>一个互连网就是一组通过相同协议族互连在一起的网络。  </p>
+</blockquote>
+<h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p>TCP/IP通常被认为是一个四层协议系统:<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/WX20170320-171317@2x.png?imageView2/0/q/100" alt="WX20170320-171317@2x" title="">
+                </div>
+                <div class="image-caption">WX20170320-171317@2x</div>
+            </figure></p>
+<p>网络层和运输层之间的区别是最为关键的：网络层（IP）提供点到点的服务，而运输层（TCP和UDP）提供端到端的服务。</p>
+<p>在TCP/IP协议族中，网络层IP提供的是一种不可靠的服务。也就是说，它只是尽可能快地把分组从源结点送到目的结点，但是并不提供任何可靠性保证。而另一方面，TCP在不可靠的IP层上提供了一个可靠的运输层。为了提供这种可靠的服务，TCP采用了超时重传、发送和接收端到端的确认分组等机制。</p>
+<p>路由器为不同类型的物理网络提供连接。</p>
+<p>一个主机也可以有多个接口，但一般不称作路由器,除非它的功能只是单纯地把分组从一个接口传送到另一个接口。</p>
+<p>互联网的目的之一是在应用程序中隐藏所有的物理细节。</p>
+<p>连接网络的另一个途径是使用网桥。网桥是在链路层上对网络进行互连，而路由器则是在网络层上对网络进行互连。</p>
+<h2 id="互联网的地址"><a href="#互联网的地址" class="headerlink" title="互联网的地址"></a>互联网的地址</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/47F26D90-176D-4C0A-A315-6A9E199E79F6.png?imageView2/0/q/100" alt="47F26D90-176D-4C0A-A315-6A9E199E79F6" title="">
+                </div>
+                <div class="image-caption">47F26D90-176D-4C0A-A315-6A9E199E79F6</div>
+            </figure>
+<p>这些 32 位的地址通常写成四个十进制的数,其中每个整数对应一个字节。这种表示方法称作“点分十进制表示法(Dotted decimal notation)”。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo8snaf4x.bkt.clouddn.com/70807FBE-712D-4A5C-97F2-BBCA12C1F11D.png?imageView2/0/q/100" alt="70807FBE-712D-4A5C-97F2-BBCA12C1F11D" title="">
+                </div>
+                <div class="image-caption">70807FBE-712D-4A5C-97F2-BBCA12C1F11D</div>
+            </figure></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>TCP传给IP的数据单元称作TCP报文段或简称为TCP段（TCP segment）。IP传给网络接口层的数据单元称作IP数据报(IP datagram)。通过以太网传输的比特流称作帧(Frame)。</p>
+<h2 id="分用"><a href="#分用" class="headerlink" title="分用"></a>分用</h2><p>当目的主机收到一个以太网数据帧时，数据就开始从协议栈中由底向上升，同时去掉各层协议加上的报文首部。每层协议盒都要去检查报文首部中的协议标识，以确定接收数据的上层协议。这个过程称作分用（Demultiplexing）。</p>
+<h2 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户-服务器模型"></a>客户-服务器模型</h2><p>大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。<br>一般来说，TCP服务器是并发的，而UDP服务器是重复的。</p>
+<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><ol>
+<li>请计算最多有多少个A类、B类和C类网络号。</li>
+<li>用匿名FTP（见27.3节）从主机nic.merit.edu上获取文件nsfnet_statistics_history.netcount。该文件包含在NSFNET网络上登记的国内和国外的网络数。画一坐标系，横坐标代表年，纵坐标代表网络总数的对数值。纵坐标的最大值是习题1.1的结果。如果数据显示一个明显的趋势，请估计按照当前的编址体制推算，何时会用完所有的网络地址（3.10节讨论解决该难题的建议）。</li>
+<li>获取一份主机需求<strong>RFC</strong>拷贝[Braden 1989a]，阅读有关应用于TCP/IP协议族每一层的稳健性原则。这个原则的参考对象是什么？</li>
+<li>获取一份最新的赋值<strong>RFC</strong>拷贝。“quote of the day”协议的有名端口号是什么？哪个<strong>RFC</strong>对该协议进行了定义？</li>
+<li>如果你有一个接入TCP/IP互联网的主机帐号，它的主IP地址是多少？这台主机是否接入了Internet？它是多接口主机吗？</li>
+<li>获取一份<strong>RFC</strong> 1000的拷贝，了解RFC这个术语从何而来。</li>
+<li>与<strong>Internet</strong>协会联系，isoc@isoc.org或者<strong>+170 3648 9888</strong>，了解有关加入的情况。</li>
+<li>用匿名FTP从主机is.internic.net处获取文件about-internic/information-about-the-internic。</li>
+</ol>
+<h2 id="部分习题答案"><a href="#部分习题答案" class="headerlink" title="部分习题答案"></a>部分习题答案</h2><ol>
+<li>答案是：27-2（126）＋214-2（16 382）＋221-2（2 097 150）=2 113 658。每一部分都减去2是因为全0或全1网络ID是非法的。</li>
+<li>图D-1显示了直到1993年8月的有关数据。如果网络数继续呈指数增长的话，虚线估计了2000年可能达到的最大的网络数。</li>
+<li>“自由地接收，保守地发送。”</li>
+</ol>
+<blockquote>
+<p>资料来源于 <a href="http://www.52im.net/" target="_blank" rel="noopener">即时通讯网</a>，仅做学习参考  </p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-12T14:22:22.232Z" itemprop="dateUpdated">2018-01-12 22:22:22</time>
+</span><br>
+
+
+        
+        <a href="/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" target="_blank" rel="external">http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/</a>
+        
+    </div>
+    <footer>
+        <a href="http://codingdoge.cn">
+            <img src="/img/avatar.jpg" alt="CodingDoge">
+            CodingDoge
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&title=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&title=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/23/title: 解决Arduino CH34x系列在macOS Sierra中找不到串口的问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决Arduino CH34x系列在macOS Sierra中找不到串口的问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/21/title: STL常见用法 — map/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">STL常见用法 — map</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CodingDoge &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&title=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&pic=http://codingdoge.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&title=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&source=Keep it simple, stuip." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《TCP/IP详解》笔记—第1章 概述》 — CodingDoge&url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/&via=http://codingdoge.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://codingdoge.cn/2017/07/23/title: 《TCP-IP详解》笔记—第1章 概述/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3aUW4qMRAEQO5/aSK93wTTPbYRT6r9itCy6zKS7fTM4xFfz39Xfs/z1zV7/u9nPm5ceHh4eKOhv7rWQ8+flgxxPSnr6Xs5Kjw8PLxrvNmivGYkr1+/pZ0mPDw8vG/jtUfk2Xay/gQPDw/v/+IlA22fkLDx8PDwvpOXhAiz4bZ3JhvSlawFDw8PL+a1BbBv+PtifQ8PDw9vo6qeXHkYkcQcbWT8Zmx4eHh4F3htuDDDzEjrglmxYeDh4eFd5rXRQH7P7AzcjvAPMB4eHt41Xh5G7ASys/LY7I14eHh4N3h5sSpZvtvgtfgFRvfj4eHh3eDNSPt3zoKGZCrf7Ht4eHh427x2cZ8di09FxvmGhIeHh3eP14YLbSF/drCe8YYNWHh4eHglL9kATh1/Z+X/nSnDw8PDu8c7taC3h918goatCXh4eHgXeDtbQh6nzoKJ9lsvwXh4eHhHeW2gkH9e1N/KpqviqI2Hh4d3mZecSPMoITny7twTbT94eHh4H+HtHH/balS+wczKeHh4eHg3ePmL2w2gbQU41W71srMMDw8P7xBvZwlO4oyddq78cB9tCXh4eHjXeG071H6LVRsB59OBh4eH9xleu2G0MUTeBNCGGsW+h4eHh7fBWy/xbVjQRrSzAtiwDIaHh4d3lLdfgmpjguSI3MYcdWqCh4eHt8G7sTTPvpsPevi74eHh4R3lzYpe7TaTF8PaQKQOc/Hw8PBG43mWV1I2S4bbPnMYauDh4eFd4O3EDQmgXdB3tg08PDy8T/LazSBvycpbuGaxSNEfgYeHh3eBly/6RcPTNmMWkeDh4eF9P28nhE0aDvL448B/A3h4eHhHeXnhP/lkFi7UDQd4eHh413h5g1R+mG5jhZ3D+pvOCDw8PLyjvNlhd3a8bielbWg4UN/Dw8PDW/F+AJysDQHLHnbDAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '呀你走了吗';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你回来啦';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
