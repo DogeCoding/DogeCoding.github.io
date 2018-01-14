@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://codingdoge.cn/"/>
-  <updated>2018-01-14T18:00:21.152Z</updated>
+  <updated>2018-01-14T18:35:22.274Z</updated>
   <id>http://codingdoge.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Just a test</title>
+    <title>Just a test2</title>
     <link href="http://codingdoge.cn/2018/01/15/test/"/>
     <id>http://codingdoge.cn/2018/01/15/test/</id>
     <published>2018-01-14T18:00:21.152Z</published>
-    <updated>2018-01-14T18:00:21.152Z</updated>
+    <updated>2018-01-14T18:35:22.274Z</updated>
     
     <content type="html"><![CDATA[<p>aaa</p><h2 id="a-dfadf"><a href="#a-dfadf" class="headerlink" title="a dfadf"></a>a dfadf</h2>]]></content>
     
