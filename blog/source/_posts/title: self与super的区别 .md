@@ -48,10 +48,10 @@ return 0;
 
 上面有简单的两个类，在子类**PersonMe**中调用了自己类中的**setAge**和父类中的**setName**，这些代码看起来很好理解，没什么问题。 然后我在**setName:andAge**的方法中加入两行:  
 
-``` //
+```
 NSLog(@"self ' class is %@", [self class]);
 NSLog(@"super' class is %@", [super class]);
-```  
+```
 
 这样在调用时，会打出来这两个的**class**，先猜下吧，会打印出什么？ 按照以前*oop*语言的经验，这里应该会输出:***self ' s class is PersonMe super ' s class is Person***
 
